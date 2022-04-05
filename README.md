@@ -49,6 +49,4 @@ To start the application, open a commandline in the root folder and type *docker
 
 The correct URL for adding an apartment would be, for instance, *localhost:5001/add?name=apartment1&size=15*
 
-Test
-
 
