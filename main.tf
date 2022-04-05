@@ -1,10 +1,13 @@
 # An example resource that does nothing.
 
-required_providers {
- null = {
-  version = "~> 3.0.0"
+terraform {
+ required_providers {
+  null = {
+   version = "~> 3.0.0"
+  }
  }
 }
+
 
 resource "null_resource" "example" {
  triggers = {
