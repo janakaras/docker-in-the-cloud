@@ -1,4 +1,4 @@
-# Cloud Computing Project: Deployment of a Docker Application in the Cloud
+# Cloud Computing Project: Deployment of a Docker Application in the Cloud 
 
 ## Details of the Docker Application 
 
