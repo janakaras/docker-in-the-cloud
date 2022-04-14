@@ -90,3 +90,55 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
+      
+  # ------
+#  ssh-aws:
+#    name: 'ssh-aws'
+#    runs-on: ubuntu-latest
+#    environment: production
+
+#    steps:
+
+#    - name: change permissions of key file
+#      run: chmod 400 docker_test.pem 
+#       #TODO: find a way to refer to key pair
+
+#    - name: copy files 
+#      run: scp -r -i docker_test.pem C:\Users\JohnDoe\Documents\A_Uni\Master\2_Semester\Cloud_Computing\cc-lproject-local-2 ec2-user@34.226.195.38:~/
+#       #TODO: find a way to refer to files in Github Repo and find a way to find out the IP-adress of the EC2 machine
+
+#    - name: ssh into ec2 machine
+#      run: ssh -i docker_test.pem ec2-user@34.226.195.38
+#       #TODO: see above 
+
+#    - name: Sudo Yum Update
+#      run: sudo yum update
+#       #TODO: check if this is working 
+
+#    - name: Install Docker inside EC2
+#      run: sudo yum install docker
+
+#    - name: Install Docker Compose inside EC2
+#      run: sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+
+#    - name: Change some Docker Compose file rights inside EC2
+#      run: sudo chmod +x /usr/local/bin/docker-compose
+
+#    - name: Another command inside EC2
+#      run: sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+#    - name: Start docker inside EC2
+#      run: sudo service docker start
+
+#    - name: Docker info inside EC2
+#      run: sudo docker info 
+#       #TODO: actually unnecessary since we do not see it anyways? 
+        
+#    - name: Cd into directory 
+#      run: cd docker-in-the-cloud
+#       #TODO: Check if this is the correct directory (depends on copying step)
+
+#    - name: Docker Compose Up
+#      run: sudo docker-compose up
+
+
