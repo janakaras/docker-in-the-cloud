@@ -47,7 +47,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "app_server" {
-  count                  = 2
+  count                  = 1
   ami                    = "ami-0c02fb55956c7d316"
   instance_type          = "t2.micro"
   key_name               = "ec2-deployer-key-pair"
@@ -60,7 +60,7 @@ resource "aws_instance" "app_server" {
     ]
   }
   tags = {
-    Name = "EC2-with-Terraform"
+    Name = "EC2-with-Security-Rule-Port-5004"
   }
   connection {
     type    = "ssh"
