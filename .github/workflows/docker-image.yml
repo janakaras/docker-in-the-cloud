@@ -17,7 +17,7 @@ jobs:
       run: echo Programmieren20222 | docker login -u janakaras --password-stdin
       
     - name: Build the Apartments Docker image
-      run: docker build ./apartments --file Dockerfile --tag apartments:$(date +%s)
+      run: docker build . --file apartments/Dockerfile --tag apartments:$(date +%s)
       
     - name: Build the Gateway Docker image
       run: docker build ./gateway --file Dockerfile --tag gateway:$(date +%s)
