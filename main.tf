@@ -48,7 +48,7 @@ provider "aws" {
 
 resource "aws_instance" "app_server" {
   count                  = 1
-  ami                    = "ami-0c02fb55956c7d316"
+  ami                    = "ami-03ededff12e34e59e"
   instance_type          = "t2.micro"
   key_name               = "ec2-deployer-key-pair"
   vpc_security_group_ids = [aws_security_group.main.id]
