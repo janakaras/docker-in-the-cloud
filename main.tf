@@ -51,7 +51,7 @@ resource "aws_instance" "app_server" {
   ami                    = "ami-03ededff12e34e59e"
   instance_type          = "t2.micro"
 #  key_name               = "ec2-deployer-key-pair"
-#   key_name = "github-actions" TO UNCOMMENT
+  key_name = "github-actions"
   vpc_security_group_ids = [aws_security_group.main.id]
 #  user_data = << EOF
 #              #! /bin/bash
@@ -124,11 +124,11 @@ resource "aws_security_group" "main" {
   ]
 }
 
-# resource "aws_key_pair" "deployer" {
-# #  key_name   = "ec2-deployer-key-pair"
-#   key_name = "github-actions" TO UNCOMMENT!!!
-# #  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFAJSxi66GyyXma8eNGfq28OGVgFnOvF8TYxtu770wjU95HmRQLoWOKKunYofU4EdP7YvwV9bl1NjJAkvZ3bN+nWGxp1cNHTqfJDoyFlN8j1xnEFZdkzW74k2RpEb52vYSaHRizT7sqq/XuTK5MNcbbsTXvT6wiJpUkaberi4VBeD2wDzkLWjVHfMTfvs6/4vYuVML+7qfq6OMFYFWdFyRZ26w6KGHzKqLbUwC2waaetooNCtYQdyvcs2zYOulTeJDP49jYxrRRfpzJLqkxkdC96klIDmJRuujaBv3NWkGM1Xd7KvMUstI7NASZFd9O8ryVfHr2sO4MSWZ+jCHnLd6YiXL7dTlOJ+KZ7RiFboYD/7SxwuUFtAmFYn5Net3FmyVFZTAyujDpX8jQ9lfPuoee+J4dAlDvqSGsASxvyOMML2/VsxjXoS6YTLH76RZmkPswnYikm9R6/TsbFnOg2cgTADKpggD0O7I9CjFV9Xn1D/8qWEKqlX1eUIKzNO4Pt+iCSacS4GpTykinf/xyDXQ+di0K+rdSsWUe3x9AY2mJHbCSqKimSdZKT18kE6REly1qdX0WjmN+fqP5j9brXy7aJKUsCjSJPgzyAEjwo59hFYNjFJynWFxQPrdmIMoomg7Spk7FeAUL1C4VamHW9XptxZx+tdSVaL6mNrrYC1LBQ== jkaras@unibz.it"
-#   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPXM0+C1IpN5Y+sxrGUHJt6xn7fKKQNwd71wlRoS+FQHzHTmKGGwC7L0Ok4kp1B1n/mT75vuBTpZr4Ws7/m48zKEO1sQwBtmOXBoiAuJRJolV7xvKrode4PCZWq1ZfiB4w5U5FDOlsLs6ENR0oHtEAOJLm37x4sMOGtiPl6N40Iy+eIcYrpJeAuyV467KgbQThR+ug734Po0oeQYYf4P+EpSJQ89oUuDVDEn1d4W7cykh3HxZAchtfZB04QFKhaWd9fOryJwqcA3z7cxJE2LDhgIRv2PN7S/80s8phrC+SF9I2wpsuFg2Yr/lNyfZXKWLwRw9uEN6ArjOYAL4gGUhYBlplm9B2coctMpMA6oJfkCXcGhEHCXx0VXGec6VcrAGFMUBjE2lIdUsgnfQX3cm2IoG4RYyLWA8+1mnXNtt8KcuAuam47IqMIHcp7/ovlrc/oNIfCrNCjFcOsKql6174555/l7pGW8+SVjavWt1Nf9l62H6yLJxVFiH6hzDrKOc= johndoe@DESKTOP-EPEQT5D"
+resource "aws_key_pair" "deployer" {
+#  key_name   = "ec2-deployer-key-pair"
+  key_name = "github-actions" TO UNCOMMENT!!!
+#  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFAJSxi66GyyXma8eNGfq28OGVgFnOvF8TYxtu770wjU95HmRQLoWOKKunYofU4EdP7YvwV9bl1NjJAkvZ3bN+nWGxp1cNHTqfJDoyFlN8j1xnEFZdkzW74k2RpEb52vYSaHRizT7sqq/XuTK5MNcbbsTXvT6wiJpUkaberi4VBeD2wDzkLWjVHfMTfvs6/4vYuVML+7qfq6OMFYFWdFyRZ26w6KGHzKqLbUwC2waaetooNCtYQdyvcs2zYOulTeJDP49jYxrRRfpzJLqkxkdC96klIDmJRuujaBv3NWkGM1Xd7KvMUstI7NASZFd9O8ryVfHr2sO4MSWZ+jCHnLd6YiXL7dTlOJ+KZ7RiFboYD/7SxwuUFtAmFYn5Net3FmyVFZTAyujDpX8jQ9lfPuoee+J4dAlDvqSGsASxvyOMML2/VsxjXoS6YTLH76RZmkPswnYikm9R6/TsbFnOg2cgTADKpggD0O7I9CjFV9Xn1D/8qWEKqlX1eUIKzNO4Pt+iCSacS4GpTykinf/xyDXQ+di0K+rdSsWUe3x9AY2mJHbCSqKimSdZKT18kE6REly1qdX0WjmN+fqP5j9brXy7aJKUsCjSJPgzyAEjwo59hFYNjFJynWFxQPrdmIMoomg7Spk7FeAUL1C4VamHW9XptxZx+tdSVaL6mNrrYC1LBQ== jkaras@unibz.it"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPXM0+C1IpN5Y+sxrGUHJt6xn7fKKQNwd71wlRoS+FQHzHTmKGGwC7L0Ok4kp1B1n/mT75vuBTpZr4Ws7/m48zKEO1sQwBtmOXBoiAuJRJolV7xvKrode4PCZWq1ZfiB4w5U5FDOlsLs6ENR0oHtEAOJLm37x4sMOGtiPl6N40Iy+eIcYrpJeAuyV467KgbQThR+ug734Po0oeQYYf4P+EpSJQ89oUuDVDEn1d4W7cykh3HxZAchtfZB04QFKhaWd9fOryJwqcA3z7cxJE2LDhgIRv2PN7S/80s8phrC+SF9I2wpsuFg2Yr/lNyfZXKWLwRw9uEN6ArjOYAL4gGUhYBlplm9B2coctMpMA6oJfkCXcGhEHCXx0VXGec6VcrAGFMUBjE2lIdUsgnfQX3cm2IoG4RYyLWA8+1mnXNtt8KcuAuam47IqMIHcp7/ovlrc/oNIfCrNCjFcOsKql6174555/l7pGW8+SVjavWt1Nf9l62H6yLJxVFiH6hzDrKOc= johndoe@DESKTOP-EPEQT5D"
   
-# }
+}
 
