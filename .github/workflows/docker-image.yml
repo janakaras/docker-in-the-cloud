@@ -17,13 +17,13 @@ jobs:
       run: echo Programmieren20222 | docker login -u janakaras --password-stdin
       
     - name: Build the Apartments Docker image
-      run: docker build . --file apartments/Dockerfile --tag apartments:$(date +%s)
+      run: docker build . --file apartments/dockerfile --tag apartments:$(date +%s)
       
     - name: Build the Gateway Docker image
-      run: docker build ./gateway --file Dockerfile --tag gateway:$(date +%s)
+      run: docker build . --file gateway/dockerfile --tag gateway:$(date +%s)
       
     - name: Build the Reserve Docker image
-      run: docker build ./reverse --file Dockerfile --tag reserve:$(date +%s)
+      run: docker build . --file reserve/dockerfile --tag reserve:$(date +%s)
       
     - name: Build the Search Docker image
-      run: docker build ./search --file Dockerfile --tag search:$(date +%s)
+      run: docker build . --file search/dockerfile --tag search:$(date +%s)
