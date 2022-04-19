@@ -10,9 +10,9 @@
 #}
 
 #provider "aws" {
-#  access_key = "ASIAWEEGKEYJS5VJ4LPS"
-#  secret_key = "K+e7lnUrS3dTi/QqWndtq8U/C+A68WBtEoVPMU7P"
-#  token      = "FwoGZXIvYXdzEK3//////////wEaDKHCHsKKP6lgmSg1xSLNAUuACp3o/nJWM2sca4sE5tPuZgFSbVAPUK6fjvlQqcU01uVFWE5hxSAPfQyceO7K3WHmT+xtNRDGETXdJDKqnWK2mVKwKD0zhOTLBExCf4M33g/z9CnCbyTcAik6SeV84/Cwl1P+cDtfhX80fqJIkVJtx5CQ9KMsSkC3j0I9zAnZd8f7BiWUqUtSczzaanYZIPMa3YBhbtBlKxiDG5tx062rqEDK6pRSbGzsuf0i3KW/Svt6Oid+YF2XOzzWnX7LftjJFyKEHV3Ho0okFSMoscjVkgYyLf4Oj/bLd8GlpQmv60snlVh3hgSNUwXsU5xTBlo6Atp+ywEDKm469Lgly1vsqQ=="
+#  access_key = "ASIAWEEGKEYJXE3PFRVK"
+#  secret_key = "uehQWsBjtsci4kroW3F9vdz4sQB2aAsT50+MuJRV"
+#  token      = "FwoGZXIvYXdzEFAaDOJqSKAUjZmdkrj+miLNASe59qSPzSaOurWJgBI7Q/fRwOy/gctBySmyOokepK0TqK1wxH2f+5g1kKe6J0GN+YmaslO8IzTPFQRH4OIZ4H5h8DUC4O+t6LF+WG/3E46pg5fprsFmTI4lhY280gA2ZfqdQYmMY3ZKcKuNbFlYx8CEPedehvrosiesiUR7pJbmTN/T4Xu6TliL1ZLurACvaSuwY99+mvu1dAR2qASp0LIl9VE/NoaUEwSyE9NLb7dbhrZYWGmu93wGgrk0I3rW0+xgTod5AZvQoPfFfKEouL35kgYyLWRI0xFpLQCUTSgpRIVbeUiAVLAQFB/uY5HbExllBcUoybPBwaFxytzp+8JHDA=="
 #  region     = "us-east-1"
 #}
 #
