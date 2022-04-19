@@ -40,9 +40,9 @@ terraform {
 
 provider "aws" {
   profile    = "default"
-  access_key = "ASIAUCTPCZ2QEVFIZVM3"
-  secret_key = "oeTMpnRhfhHhO/llG7rwK1Z3xCB1QfPDQs1rOBOO"
-  token      = "FwoGZXIvYXdzEFoaDM+NRc5qYfqFAjj9DCLTAUHkCAaRvuf2I9xSYF0LKE8owrmhmUgOS9Ek788+DQVrVyDvD/nXxDQO8jtvE64F5AC6v8Rm8Ez6LrDXkyaKoHyB533IcBSsUhN7RtZ488SV/LCblBtejDRFQjD3TQa3sDvv5haLkKcRjkbidvD9Mn5Va6qnGNHFzSrApGac/NX3/GFYm5en+v3iZaFKcK9DUyPwOrei1i4+hLFXle14+RQp+tyNy0UVBTr6OH/4VsjsUF4ZrjINwMBFumdZPMLmsXSTt9fWOg3EmvNA+n+g/zGaxCsoztP7kgYyLVjn0axlbNhgVzQ2610Pl9Rj3q7iVfNQBHBsHmSvFj0QKBOGy31+J2nLr8A4zw=="
+  access_key = "ASIAUCTPCZ2QE3V32EWW"
+  secret_key = "fby2zeG+66a9e/o0LWeENppWNVE+0MmRYwOjz8T6"
+  token      = "FwoGZXIvYXdzEFsaDJTinNsq5lTlq6Z2DyLTAS2x4CTDd9S0DV/RwQZGnyq7UoDa/pekv+wIxsoZsTCSNBo4GqJBttO43ONPyivMMmt6EFKJPnsunvRmzePdlNeDDWdW6rIBEYs1pqyrFTbv8CMgUisxloD89qq9/l0kkhEMMO5kzD0rpvik9KqgI18jB/gYb3NsJ3ySNuBGMcTkf51c3PHmQZDLpNYkKFcGkU+qH0PMFV3g16k1WiaAOmDNmaVqU59AlmmS6frnzAf4q5jkfMBvEMO12k3u4KgrTBkxPF9hezLOHQ3Q0mkbJX4X8JAotvD7kgYyLeBBIIK+mFCkoHDKYFu3GUvYNizFYQbmkkf16HYI7Ay8zlg63yFFV2GjhkhGRQ=="
   region     = "us-east-1"
 }
 
@@ -102,7 +102,10 @@ resource "aws_instance" "app_server" {
      sudo chmod +x /usr/local/bin/docker-compose
      sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
      sudo service docker start
-     echo hello
+     sudo yum -y install httpd
+     sudo systemctl enable httpd
+     sudo systemctl start httpd
+     sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
      EOF
 
 #   provisioner "remote-exec" {
