@@ -21,12 +21,21 @@ jobs:
       
     - name: Build the Gateway Docker image
       run: docker build . --file gateway/dockerfile --tag janakaras/gateway:latest
-    
-    - name: Push the latest Docker image
-      run: docker push janakaras/gateway:latest
       
     - name: Build the Reserve Docker image
       run: docker build . --file reserve/dockerfile --tag janakaras/reserve:latest
       
     - name: Build the Search Docker image
       run: docker build . --file search/dockerfile --tag janakaras/search:latest
+      
+    - name: Push the Apartments Docker image
+      run: docker push janakaras/apartments:latest
+      
+    - name: Push the Gateway Docker image
+      run: docker push janakaras/gateway:latest
+      
+    - name: Push the Reserve Docker image
+      run: docker push janakaras/reserve:latest
+      
+    - name: Push the Search Docker image
+      run: docker push janakaras/search:latest
