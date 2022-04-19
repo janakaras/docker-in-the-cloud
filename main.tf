@@ -50,8 +50,8 @@ resource "aws_instance" "app_server" {
   count                  = 1
   ami                    = "ami-03ededff12e34e59e"
   instance_type          = "t2.micro"
-#  key_name               = "ec2-deployer-key-pair"
-  key_name = "Github_SSH_key"
+  key_name               = "ec2-deployer-key-pair"
+#  key_name = "Github_SSH_key"
   vpc_security_group_ids = [aws_security_group.main.id]
 
   provisioner "remote-exec" {
@@ -114,8 +114,8 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_key_pair" "deployer" {
-#  key_name   = "ec2-deployer-key-pair"
-  key_name = "Github_SSH_key"
+  key_name   = "ec2-deployer-key-pair"
+#  key_name = "Github_SSH_key"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOsJr1/n7xHmlMNnTok15a0DwX6tSbBet5qpBPbYOB6S jana.karas@gmx.de"
 }
 
