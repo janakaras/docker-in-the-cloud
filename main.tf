@@ -53,6 +53,16 @@ resource "aws_instance" "app_server" {
 #  key_name               = "ec2-deployer-key-pair"
   key_name = "github-actions"
   vpc_security_group_ids = [aws_security_group.main.id]
+  user_data = << EOF
+              #! /bin/bash
+              sudo yum update
+              sudo yum install docker
+              sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+              sudo chmod +x /usr/local/bin/docker-compose
+              sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
+              sudo service docker start
+              echo hello
+	EOF
 
   provisioner "remote-exec" {
     inline = [
@@ -68,7 +78,6 @@ resource "aws_instance" "app_server" {
     host    = self.public_ip
     user    = "ec2-user"
 #    private_key = "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"
-    private_key = file("/main/github-actions")
     timeout = "4m"
   }
 
