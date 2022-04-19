@@ -21,6 +21,9 @@ jobs:
       
     - name: Build the Gateway Docker image
       run: docker build . --file gateway/dockerfile --tag gateway:$(date +%s)
+    
+    - name: Push the latest Docker image
+      run: docker push janakaras/gateway:$(date +%s)
       
     - name: Build the Reserve Docker image
       run: docker build . --file reserve/dockerfile --tag reserve:$(date +%s)
