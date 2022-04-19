@@ -105,15 +105,15 @@ resource "aws_instance" "app_server" {
 #              echo hello
 #	EOF
 
-  provisioner "remote-exec" {
-    inline = [
-      "touch hello.txt",
-      "echo helloworld remote provisioner >> hello.txt",
-    ]
-  }
-  tags = {
-    Name = "EC2-with-Security-Rule-Port-5004"
-  }
+#   provisioner "remote-exec" {
+#     inline = [
+#       "touch hello.txt",
+#       "echo helloworld remote provisioner >> hello.txt",
+#     ]
+#   }
+#   tags = {
+#     Name = "EC2-with-Security-Rule-Port-5004"
+#   }
 #   connection {
 #     type    = "ssh"
 #     host    = self.public_ip
