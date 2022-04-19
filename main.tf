@@ -126,7 +126,7 @@ resource "aws_instance" "app_server" {
 
 
 output "ec2instance" {
-  value = aws_instance.app-server.public_ip
+  value = aws_instance.app_server.public_ip
 }
 
 # resource "aws_key_pair" "deployer" {
