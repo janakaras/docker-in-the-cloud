@@ -53,16 +53,16 @@ resource "aws_instance" "app_server" {
 #  key_name               = "ec2-deployer-key-pair"
   key_name = "github-actions"
   vpc_security_group_ids = [aws_security_group.main.id]
-  user_data = << EOF
-              #! /bin/bash
-              sudo yum update
-              sudo yum install docker
-              sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
-              sudo chmod +x /usr/local/bin/docker-compose
-              sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
-              sudo service docker start
-              echo hello
-	EOF
+#  user_data = << EOF
+#              #! /bin/bash
+#              sudo yum update
+#              sudo yum install docker
+#              sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+#              sudo chmod +x /usr/local/bin/docker-compose
+#              sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
+#              sudo service docker start
+#              echo hello
+#	EOF
 
   provisioner "remote-exec" {
     inline = [
