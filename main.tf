@@ -124,7 +124,7 @@ resource "aws_instance" "app_server" {
 
 }
 
-
+# PRINTS THE IP
 output "ec2instance" {
   value = aws_instance.app_server[0].public_ip
 }
