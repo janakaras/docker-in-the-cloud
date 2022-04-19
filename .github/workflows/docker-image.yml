@@ -17,16 +17,16 @@ jobs:
       run: echo ${{secrets.DOCKERHUB_PASSWORD}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
       
     - name: Build the Apartments Docker image
-      run: docker build . --file apartments/dockerfile --tag janakaras/apartments:$(date +%s)
+      run: docker build . --file apartments/dockerfile --tag janakaras/apartments:latest
       
     - name: Build the Gateway Docker image
-      run: docker build . --file gateway/dockerfile --tag janakaras/gateway:$(date +%s)
+      run: docker build . --file gateway/dockerfile --tag janakaras/gateway:latest
     
     - name: Push the latest Docker image
-      run: docker push janakaras/gateway:$(date +%s)
+      run: docker push janakaras/gateway:latest
       
     - name: Build the Reserve Docker image
-      run: docker build . --file reserve/dockerfile --tag janakaras/reserve:$(date +%s)
+      run: docker build . --file reserve/dockerfile --tag janakaras/reserve:latest
       
     - name: Build the Search Docker image
-      run: docker build . --file search/dockerfile --tag janakaras/search:$(date +%s)
+      run: docker build . --file search/dockerfile --tag janakaras/search:latest
