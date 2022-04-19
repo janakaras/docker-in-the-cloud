@@ -40,9 +40,9 @@ terraform {
 
 provider "aws" {
   profile    = "default"
-  access_key = "ASIAWEEGKEYJXKLOTS6N"
-  secret_key = "sNPxEhj0ZJ+tWeyxlz15fYJO6H8GEBWwusnBniMI"
-  token      = "FwoGZXIvYXdzEFUaDFRJNmQw8kaqCAD/WCLNARCwe78GR8Rzn9JgefbtwhgBqqVZho+CNXDf6uS4dxYN0KR/bcaPe+y6DOd6JAMSiW44J4CXq5O5cxLGt3XSWmw2Z1LiZKWwG095Pmh0Wwweq0eNmUdLDbtFMWp/2a3YStYiFETftbB0XgaReb6U2RRO9A9V+thgeYQahZfyXH+PzEnBgB6DjpC/39YFEinwFOt9RdrfQfzGRAOU6Lr1CdNd+N+o4+lxu0KPYyBRsExGZkmk92/Lt5m7ZtZJv9D4MQk6nudFCTmzeD/7UTUogrr6kgYyLSyV0Re/+798nZ4LPC9yBE1KUSnREpvzl7DE5ljrXDqP+667qvgIr5WD2oO4IQ=="
+  access_key = "ASIA5QUJT7AVO5UWBJIR"
+  secret_key = "6F3bObQ5fKuKvagJx83fB/1c9KqPTlrWBTRxGM6k"
+  token      =  "FwoGZXIvYXdzEFgaDNeSiQW3mX8NaWku3yLTAWWfGbP5fPlEemJVqrlSas3fUCGkFi+/deFRvmNHIO0WkJl7nDQIpZMNYUbTb8gkzczprwZlpPFRyfAqFdYMPLjse6IOaZYu4Wn/9f/XbK8H2TsNDbEfugenRpFlCHmUiUvdYEcjpafK+4dETKtX3LVOOWNARNtLiyyF0P6BT3kKZni5U9PAvFhNtoZyFXQXpQ09EIv2r30pk1eRwJ8WXUyn7Ub99l7/RJ/LtVFPqJOHvUO+f1qDsz7IAg8ARWJhxvYbu9QmV7vXtZwwR0ppO+CD1JAohIv7kgYyLXOZf9nm89hFaHr92kWEKMonUS8HGmWVTzxl8L6nLp6YTebjgOzcYhnDGGxdSQ"
   region     = "us-east-1"
 }
 
@@ -51,7 +51,7 @@ resource "aws_instance" "app_server" {
   ami                    = "ami-03ededff12e34e59e"
   instance_type          = "t2.micro"
 #  key_name               = "ec2-deployer-key-pair"
-  key_name = "github-actions"
+#   key_name = "github-actions" TO UNCOMMENT
   vpc_security_group_ids = [aws_security_group.main.id]
 #  user_data = << EOF
 #              #! /bin/bash
@@ -124,11 +124,11 @@ resource "aws_security_group" "main" {
   ]
 }
 
-resource "aws_key_pair" "deployer" {
-#  key_name   = "ec2-deployer-key-pair"
-  key_name = "github-actions"
-#  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFAJSxi66GyyXma8eNGfq28OGVgFnOvF8TYxtu770wjU95HmRQLoWOKKunYofU4EdP7YvwV9bl1NjJAkvZ3bN+nWGxp1cNHTqfJDoyFlN8j1xnEFZdkzW74k2RpEb52vYSaHRizT7sqq/XuTK5MNcbbsTXvT6wiJpUkaberi4VBeD2wDzkLWjVHfMTfvs6/4vYuVML+7qfq6OMFYFWdFyRZ26w6KGHzKqLbUwC2waaetooNCtYQdyvcs2zYOulTeJDP49jYxrRRfpzJLqkxkdC96klIDmJRuujaBv3NWkGM1Xd7KvMUstI7NASZFd9O8ryVfHr2sO4MSWZ+jCHnLd6YiXL7dTlOJ+KZ7RiFboYD/7SxwuUFtAmFYn5Net3FmyVFZTAyujDpX8jQ9lfPuoee+J4dAlDvqSGsASxvyOMML2/VsxjXoS6YTLH76RZmkPswnYikm9R6/TsbFnOg2cgTADKpggD0O7I9CjFV9Xn1D/8qWEKqlX1eUIKzNO4Pt+iCSacS4GpTykinf/xyDXQ+di0K+rdSsWUe3x9AY2mJHbCSqKimSdZKT18kE6REly1qdX0WjmN+fqP5j9brXy7aJKUsCjSJPgzyAEjwo59hFYNjFJynWFxQPrdmIMoomg7Spk7FeAUL1C4VamHW9XptxZx+tdSVaL6mNrrYC1LBQ== jkaras@unibz.it"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPXM0+C1IpN5Y+sxrGUHJt6xn7fKKQNwd71wlRoS+FQHzHTmKGGwC7L0Ok4kp1B1n/mT75vuBTpZr4Ws7/m48zKEO1sQwBtmOXBoiAuJRJolV7xvKrode4PCZWq1ZfiB4w5U5FDOlsLs6ENR0oHtEAOJLm37x4sMOGtiPl6N40Iy+eIcYrpJeAuyV467KgbQThR+ug734Po0oeQYYf4P+EpSJQ89oUuDVDEn1d4W7cykh3HxZAchtfZB04QFKhaWd9fOryJwqcA3z7cxJE2LDhgIRv2PN7S/80s8phrC+SF9I2wpsuFg2Yr/lNyfZXKWLwRw9uEN6ArjOYAL4gGUhYBlplm9B2coctMpMA6oJfkCXcGhEHCXx0VXGec6VcrAGFMUBjE2lIdUsgnfQX3cm2IoG4RYyLWA8+1mnXNtt8KcuAuam47IqMIHcp7/ovlrc/oNIfCrNCjFcOsKql6174555/l7pGW8+SVjavWt1Nf9l62H6yLJxVFiH6hzDrKOc= johndoe@DESKTOP-EPEQT5D"
+# resource "aws_key_pair" "deployer" {
+# #  key_name   = "ec2-deployer-key-pair"
+#   key_name = "github-actions" TO UNCOMMENT!!!
+# #  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFAJSxi66GyyXma8eNGfq28OGVgFnOvF8TYxtu770wjU95HmRQLoWOKKunYofU4EdP7YvwV9bl1NjJAkvZ3bN+nWGxp1cNHTqfJDoyFlN8j1xnEFZdkzW74k2RpEb52vYSaHRizT7sqq/XuTK5MNcbbsTXvT6wiJpUkaberi4VBeD2wDzkLWjVHfMTfvs6/4vYuVML+7qfq6OMFYFWdFyRZ26w6KGHzKqLbUwC2waaetooNCtYQdyvcs2zYOulTeJDP49jYxrRRfpzJLqkxkdC96klIDmJRuujaBv3NWkGM1Xd7KvMUstI7NASZFd9O8ryVfHr2sO4MSWZ+jCHnLd6YiXL7dTlOJ+KZ7RiFboYD/7SxwuUFtAmFYn5Net3FmyVFZTAyujDpX8jQ9lfPuoee+J4dAlDvqSGsASxvyOMML2/VsxjXoS6YTLH76RZmkPswnYikm9R6/TsbFnOg2cgTADKpggD0O7I9CjFV9Xn1D/8qWEKqlX1eUIKzNO4Pt+iCSacS4GpTykinf/xyDXQ+di0K+rdSsWUe3x9AY2mJHbCSqKimSdZKT18kE6REly1qdX0WjmN+fqP5j9brXy7aJKUsCjSJPgzyAEjwo59hFYNjFJynWFxQPrdmIMoomg7Spk7FeAUL1C4VamHW9XptxZx+tdSVaL6mNrrYC1LBQ== jkaras@unibz.it"
+#   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPXM0+C1IpN5Y+sxrGUHJt6xn7fKKQNwd71wlRoS+FQHzHTmKGGwC7L0Ok4kp1B1n/mT75vuBTpZr4Ws7/m48zKEO1sQwBtmOXBoiAuJRJolV7xvKrode4PCZWq1ZfiB4w5U5FDOlsLs6ENR0oHtEAOJLm37x4sMOGtiPl6N40Iy+eIcYrpJeAuyV467KgbQThR+ug734Po0oeQYYf4P+EpSJQ89oUuDVDEn1d4W7cykh3HxZAchtfZB04QFKhaWd9fOryJwqcA3z7cxJE2LDhgIRv2PN7S/80s8phrC+SF9I2wpsuFg2Yr/lNyfZXKWLwRw9uEN6ArjOYAL4gGUhYBlplm9B2coctMpMA6oJfkCXcGhEHCXx0VXGec6VcrAGFMUBjE2lIdUsgnfQX3cm2IoG4RYyLWA8+1mnXNtt8KcuAuam47IqMIHcp7/ovlrc/oNIfCrNCjFcOsKql6174555/l7pGW8+SVjavWt1Nf9l62H6yLJxVFiH6hzDrKOc= johndoe@DESKTOP-EPEQT5D"
   
-}
+# }
 
