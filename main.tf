@@ -1,32 +1,3 @@
-#terraform {
-#  required_providers {
-#    aws = {
-#      source  = "hashicorp/aws"
-#      version = "~> 3.27"
-#    }
-#  }
-#
-#  required_version = ">= 0.14.9"
-#}
-
-#provider "aws" {
-#  access_key = "ASIAWEEGKEYJXE3PFRVK"
-#  secret_key = "uehQWsBjtsci4kroW3F9vdz4sQB2aAsT50+MuJRV"
-#  token      = "FwoGZXIvYXdzEFAaDOJqSKAUjZmdkrj+miLNASe59qSPzSaOurWJgBI7Q/fRwOy/gctBySmyOokepK0TqK1wxH2f+5g1kKe6J0GN+YmaslO8IzTPFQRH4OIZ4H5h8DUC4O+t6LF+WG/3E46pg5fprsFmTI4lhY280gA2ZfqdQYmMY3ZKcKuNbFlYx8CEPedehvrosiesiUR7pJbmTN/T4Xu6TliL1ZLurACvaSuwY99+mvu1dAR2qASp0LIl9VE/NoaUEwSyE9NLb7dbhrZYWGmu93wGgrk0I3rW0+xgTod5AZvQoPfFfKEouL35kgYyLWRI0xFpLQCUTSgpRIVbeUiAVLAQFB/uY5HbExllBcUoybPBwaFxytzp+8JHDA=="
-#  region     = "us-east-1"
-#}
-#
-#resource "aws_instance" "app_server" {
-#  ami           = "ami-0c02fb55956c7d316"
-#  instance_type = "t2.micro"
-#
-#  tags = {
-#    Name = "ExampleAppServerInstance"
-#  }
-#}
-
-# -----------------------------------------------
-
 terraform {
   required_providers {
     aws = {
@@ -40,9 +11,9 @@ terraform {
 
 provider "aws" {
   profile    = "default"
-  access_key = "ASIAQ4W3HXFHNUHYJ46C"
-  secret_key = "h78ePTD2KUdoPSt4M47QJH+U1Zc0zbnog56uldg+"
-  token      = "FwoGZXIvYXdzEFwaDPSRJTQBJDlRXmoEUyLTAVYNoHiUqKDusCj81fkTCFyWe0111VJVxL9wHxTfzp8cGbz6sVMUl/csttNNxe4FsGG9tbOm+Jk1utRA0o9SqWQTvjnHNx24w1eBqZWCjx3hNhbFVpPfJ6hKnile2vpJgRKT5c0G6N6IeSoXW7hex+RRBJDFR7cMOOSoShM4oDj8eKIRJWCS5PyAMcBMsatvcgck2fLBB4C9d449g78sl5hBKCpXF4+uXX9tgR9Or7TexhEbCSsUaRXJub7fRyfWdotNUeB7juhtla0Uka/GgT7tmR8ovPz7kgYyLYdYEWP9jU0D/76/iK5AvkxbfkA4fzyiWjAKFM2TSoJBn+rySTmelVEVOgNNmA=="
+  access_key = "ASIAWEEGKEYJTQCC565C"
+  secret_key = "TSUUdHB4d6t2Pch6X1j+pAtU7TQAlwORzANfyDXz"
+  token      = "FwoGZXIvYXdzEGoaDGLhunKdBh1WeH1vkSLNAbXEbgBTqfFyP0PqOHU+kvqpxifB3XBpgTUxFtLdeelxx12wkX4sY8T7yGF/QPpcU0j1JztzCKIUfjo/J4cbZ1kz8Lw4XFYNpt1eiseV6KdJbumGiOuW4FQWZLgiYCwRMwRnJyDdR16UGDrmT4jWOHp6zu/VmfZsQY8GRoOIOTHUlNxh0LRu4F4zVMvkVRCqvAejiVd1lzdJ2SC1SARK4q1JYa1+TRjQzjwVOlWAL9bxQpKjXQCU0siwzVJZEm4Cy7WomJvslH9r5MqPivcoo5X/kgYyLet6KJNbmcPjzTqG7n45YkD7FhS4i7fH6KacBvJ4vZu56+VFCCAyz4lIIxVvIA=="
   region     = "us-east-1"
 }
 
@@ -92,7 +63,7 @@ resource "aws_instance" "app_server" {
   ami                    = "ami-03ededff12e34e59e"
   instance_type          = "t2.micro"
 #  key_name               = "ec2-deployer-key-pair"
-#   key_name = "github-actions"
+#  key_name = "github-actions"
  vpc_security_group_ids = [aws_security_group.main.id]
  user_data = <<EOF
      #! /bin/bash
@@ -106,7 +77,15 @@ resource "aws_instance" "app_server" {
      sudo systemctl enable httpd
      sudo systemctl start httpd
      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+     sudo yum install git -y
+     sudo git clone git@github.com:janakaras/docker-in-the-cloud.git
+     cd docker-in-the-cloud 
+     sudo docker-compose up
      EOF
+  
+  tags = {
+     Name = "EC2-with-Security-Rule-Port-5004"
+   }
 
 #   provisioner "remote-exec" {
 #     inline = [
@@ -114,9 +93,7 @@ resource "aws_instance" "app_server" {
 #       "echo helloworld remote provisioner >> hello.txt",
 #     ]
 #   }
-#   tags = {
-#     Name = "EC2-with-Security-Rule-Port-5004"
-#   }
+
 #   connection {
 #     type    = "ssh"
 #     host    = self.public_ip
