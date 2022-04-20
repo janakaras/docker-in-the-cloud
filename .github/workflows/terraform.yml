@@ -95,7 +95,7 @@ jobs:
       run: sleep 200 
       
     - name: Terraform destroy 
-      run: terraform destroy
+      run: terraform destroy -force
       
     
 
