@@ -77,10 +77,10 @@ resource "aws_instance" "app_server" {
      sudo systemctl enable httpd
      sudo systemctl start httpd
      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
-     sudo yum install git -y
-     sudo git clone git@github.com:janakaras/docker-in-the-cloud.git
-     cd docker-in-the-cloud 
-     sudo docker-compose up
+#     sudo yum install git -y
+#     sudo git clone git@github.com:janakaras/docker-in-the-cloud.git
+#     cd docker-in-the-cloud 
+#     sudo docker-compose up
      EOF
   
   tags = {
