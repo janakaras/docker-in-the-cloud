@@ -11,9 +11,9 @@ terraform {
 
 provider "aws" {
   profile    = "default"
-  access_key = "ASIAUCTPCZ2QDBPN3ZHW"
-  secret_key = "h+CX5ADUe6ZAyHXWsuq+YfEfPgu28YOzSjO62Rle"
-  token      = "FwoGZXIvYXdzEHAaDMLQ7vXjYiaiUkNNICLTAe/Wb6a2pc7G+VulZkcVH/6/07dfxjWSVNHNdRnLbboSZHsYh5aynqxFa4tkf/NNzSKQAIdupN7+nvNNaWo7OWFMwlrrJNYr3H1fY2sKnjQtsyfCSGYQ6+vj0n0G5HyfNLDJzBL4aE9+fTF+ANqIcJ6S4xnsExLuu1yKbmzYzFdUETN2bA61eQJxhNh8GWL4fa5jt5piyuuo66Evb5MuLPb8ALjr5aR4JEPPWJeCoLM9uDW+9ejv67mp2GAkP1asrvxUV/pmk4uK4Rmje5My3aMR9ZUok7yAkwYyLUwvxLOqV3/j4en2H8qpOJWtzUVw9qMH+f7PUAhTNayKLUZLDE+tKqHC73qx9w=="
+  access_key = "ASIAWEEGKEYJ7IZ3FCGY"
+  secret_key = "zu0RRjYqhFCAKCUT33Ucuc1fDZ8tOY8jVqbqeIAe"
+  token      = "FwoGZXIvYXdzEHIaDGGEu08z1EQQDa+c0yLNAQazVbDs+EwW/QanMEt2G+XJ+sPdOySgTA+fZZBDfbBOnPA1uT18unc5yNLEaY1Rr8cPMSGvY4ETnj80K9EW6Cn9BfwC005A+NNk0IV3s5dPsxOEs8Q5p42+MHf4FcwWPuYZ0lS5T8Sc4zSnWoPagKfxwrljIHaE1jx92E/yhSp2eXK2Q0xhDsHXAHemREoOKaeMvu9RZ50PhUM/hf+QviUWaN7JZgp2D9/A90eSwS88Nxlb3oEJlkCclqecPwNeiJS6R1rXdW1nDHsarewowuuAkwYyLV9x42qwOETZ0eiX5M9Xl7sAlGU50KPuYsvXQ4ZHoZMHqEpkSGStXQ3veZT43w=="
   region     = "us-east-1"
 }
 
@@ -81,10 +81,6 @@ resource "aws_instance" "app_server" {
 #      sudo systemctl enable httpd
 #      sudo systemctl start httpd
 #      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
-#     sudo yum install git -y
-#     sudo git clone git@github.com:janakaras/docker-in-the-cloud.git
-#     cd docker-in-the-cloud 
-#     sudo docker-compose up
      EOF
   
   tags = {
