@@ -67,16 +67,20 @@ resource "aws_instance" "app_server" {
  vpc_security_group_ids = [aws_security_group.main.id]
  user_data = <<EOF
      #! /bin/bash
+     sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip
+     sudo unzip main.zip
+     sudo cd docker-in-the-cloud-main
      sudo yum update
      sudo yum install docker
      sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
      sudo chmod +x /usr/local/bin/docker-compose
      sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
      sudo service docker start
-     sudo yum -y install httpd
-     sudo systemctl enable httpd
-     sudo systemctl start httpd
-     sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+     sudo docker-compose up
+#      sudo yum -y install httpd
+#      sudo systemctl enable httpd
+#      sudo systemctl start httpd
+#      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
 #     sudo yum install git -y
 #     sudo git clone git@github.com:janakaras/docker-in-the-cloud.git
 #     cd docker-in-the-cloud 
