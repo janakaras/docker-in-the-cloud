@@ -69,7 +69,7 @@ resource "aws_instance" "app_server" {
      #! /bin/bash
      sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip
      sudo unzip main.zip
-     sudo cd docker-in-the-cloud-main
+     cd docker-in-the-cloud-main
      sudo yum update
      sudo yum install docker
      sudo curl -L https://github.com/docker/compose/releases/download/1.29.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
