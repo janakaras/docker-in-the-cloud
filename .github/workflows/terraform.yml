@@ -92,7 +92,7 @@ jobs:
       run: terraform apply -auto-approve
       
     - name: Keep infrastructure
-      run: sleep 5 
+      run: sleep 7200 
       
     - name: Terraform destroy 
       run: terraform destroy -auto-approve
