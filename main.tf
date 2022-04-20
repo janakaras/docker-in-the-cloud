@@ -47,7 +47,7 @@ resource "aws_security_group" "main" {
     {
       cidr_blocks      = ["0.0.0.0/0", ]
       description      = ""
-      from_port        = 5004
+      from_port        = 5001 # to be changed when application runs only from 5004
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       protocol         = "tcp"
