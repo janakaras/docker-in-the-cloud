@@ -20,22 +20,22 @@ jobs:
       run: docker build . --file apartments/dockerfile_image --tag janakaras/apartments:latest
       
     - name: Build the Gateway Docker image
-      run: cd gateway | docker build . --file dockerfile --tag janakaras/gateway:latest | cd ..
+      run: docker build . --file gateway/dockerfile_image --tag janakaras/gateway:latest
       
     - name: Build the Reserve Docker image
-      run: cd reserve | docker build . --file dockerfile --tag janakaras/reserve:latest | cd ..
+      run: docker build . --file reserve/dockerfile_image --tag janakaras/reserve:latest
       
     - name: Build the Search Docker image
-      run: cd search | docker build . --file dockerfile --tag janakaras/search:latest | cd ..
+      run: docker build . --file search/dockerfile_image --tag janakaras/search:latest
       
     - name: Push the Apartments Docker image
-      run: cd apartments | docker push janakaras/apartments:latest | cd ..
+      run: docker push janakaras/apartments:latest
       
     - name: Push the Gateway Docker image
-      run: cd gateway | docker push janakaras/gateway:latest | cd ..
+      run: docker push janakaras/gateway:latest
       
     - name: Push the Reserve Docker image
-      run: cd reserve | docker push janakaras/reserve:latest | cd ..
+      run: docker push janakaras/reserve:latest
       
     - name: Push the Search Docker image
-      run: cd search | docker push janakaras/search:latest | cd ..
+      run: docker push janakaras/search:latest
