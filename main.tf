@@ -5,24 +5,34 @@ terraform {
       version = "~> 3.27"
     }
   }
+  
+  backend "remote" {
+    # The name of your Terraform Cloud organization.
+    organization = "example-organization"
+    
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "example-workspace"
+    }
+  }
 
   required_version = ">= 1.0.4"
 }
 
-provider "aws" {
-  profile    = "default"
-  access_key = "ASIAWEEGKEYJTSE763NI"
-  secret_key = "EaMAxHN9PF7RCVJ9QsDAuoGSeK+qZbSYEq3kxxV0"
-  token      = "FwoGZXIvYXdzEID//////////wEaDHdWYGNElwst5EO3giLNAQmVIIT6YtdpRH660VFNZiBViwCWyzskT57qLSoTFC9I3Z3eHOE5wqx7ojwpldRKz3lve/TaXUeRmjlRiC30QeidoIcsHXtO/r5wglrd3TMHGvOdZY3YNPqb7A5qDflKbdAG/tsBXciKW30IOxew/r6bwHLSvysnDezLVVBuMaiGoro/euuP/+tITuc7Qist6vex5lnP6SEayetFofR398ANO/u79bgFA9ymYmlAm725u/RkCEueh5bDo8LGA9MMyy75Wrr4Qd37386KFjco8fiDkwYyLXFabwm9JKFXaSuXXrglewo3EffdgOyVVF+S6aGQhLCZrq/kQAOBlCWZnqx5ZQ=="
-  region     = "us-east-1"
-}
-
 #provider "aws" {
 #  profile    = "default"
-#  access_key = var.AWS_ACCESS_KEY_ID
-#  secret_key = var.AWS_SECRET_ACCESS_KEY
+#  access_key = "ASIAWEEGKEYJTSE763NI"
+#  secret_key = "EaMAxHN9PF7RCVJ9QsDAuoGSeK+qZbSYEq3kxxV0"
+#  token      = "FwoGZXIvYXdzEID//////////wEaDHdWYGNElwst5EO3giLNAQmVIIT6YtdpRH660VFNZiBViwCWyzskT57qLSoTFC9I3Z3eHOE5wqx7ojwpldRKz3lve/TaXUeRmjlRiC30QeidoIcsHXtO/r5wglrd3TMHGvOdZY3YNPqb7A5qDflKbdAG/tsBXciKW30IOxew/r6bwHLSvysnDezLVVBuMaiGoro/euuP/+tITuc7Qist6vex5lnP6SEayetFofR398ANO/u79bgFA9ymYmlAm725u/RkCEueh5bDo8LGA9MMyy75Wrr4Qd37386KFjco8fiDkwYyLXFabwm9JKFXaSuXXrglewo3EffdgOyVVF+S6aGQhLCZrq/kQAOBlCWZnqx5ZQ=="
 #  region     = "us-east-1"
 #}
+
+provider "aws" {
+  profile    = "default"
+  access_key = var.AWS_ACCESS_KEY_ID
+  secret_key = var.AWS_SECRET_ACCESS_KEY
+  region     = "us-east-1"
+}
 
 resource "aws_security_group" "main" {
   egress = [
