@@ -9,20 +9,20 @@ terraform {
   required_version = ">= 1.0.4"
 }
 
-#provider "aws" {
-#  profile    = "default"
-#  access_key = "ASIAWEEGKEYJ7IZ3FCGY"
-#  secret_key = "zu0RRjYqhFCAKCUT33Ucuc1fDZ8tOY8jVqbqeIAe"
-#  token      = "FwoGZXIvYXdzEHIaDGGEu08z1EQQDa+c0yLNAQazVbDs+EwW/QanMEt2G+XJ+sPdOySgTA+fZZBDfbBOnPA1uT18unc5yNLEaY1Rr8cPMSGvY4ETnj80K9EW6Cn9BfwC005A+NNk0IV3s5dPsxOEs8Q5p42+MHf4FcwWPuYZ0lS5T8Sc4zSnWoPagKfxwrljIHaE1jx92E/yhSp2eXK2Q0xhDsHXAHemREoOKaeMvu9RZ50PhUM/hf+QviUWaN7JZgp2D9/A90eSwS88Nxlb3oEJlkCclqecPwNeiJS6R1rXdW1nDHsarewowuuAkwYyLV9x42qwOETZ0eiX5M9Xl7sAlGU50KPuYsvXQ4ZHoZMHqEpkSGStXQ3veZT43w=="
-#  region     = "us-east-1"
-#}
-
 provider "aws" {
   profile    = "default"
-  access_key = var.AWS_ACCESS_KEY_ID
-  secret_key = var.AWS_SECRET_ACCESS_KEY
+  access_key = "ASIAWEEGKEYJTSE763NI"
+  secret_key = "EaMAxHN9PF7RCVJ9QsDAuoGSeK+qZbSYEq3kxxV0"
+  token      = "FwoGZXIvYXdzEID//////////wEaDHdWYGNElwst5EO3giLNAQmVIIT6YtdpRH660VFNZiBViwCWyzskT57qLSoTFC9I3Z3eHOE5wqx7ojwpldRKz3lve/TaXUeRmjlRiC30QeidoIcsHXtO/r5wglrd3TMHGvOdZY3YNPqb7A5qDflKbdAG/tsBXciKW30IOxew/r6bwHLSvysnDezLVVBuMaiGoro/euuP/+tITuc7Qist6vex5lnP6SEayetFofR398ANO/u79bgFA9ymYmlAm725u/RkCEueh5bDo8LGA9MMyy75Wrr4Qd37386KFjco8fiDkwYyLXFabwm9JKFXaSuXXrglewo3EffdgOyVVF+S6aGQhLCZrq/kQAOBlCWZnqx5ZQ=="
   region     = "us-east-1"
 }
+
+#provider "aws" {
+#  profile    = "default"
+#  access_key = var.AWS_ACCESS_KEY_ID
+#  secret_key = var.AWS_SECRET_ACCESS_KEY
+#  region     = "us-east-1"
+#}
 
 resource "aws_security_group" "main" {
   egress = [
