@@ -29,13 +29,13 @@ jobs:
       run: cd search | docker build . --file dockerfile --tag janakaras/search:latest | cd ..
       
     - name: Push the Apartments Docker image
-      run: docker push janakaras/apartments:latest
+      run: cd apartments | docker push janakaras/apartments:latest | cd ..
       
     - name: Push the Gateway Docker image
-      run: docker push janakaras/gateway:latest
+      run: cd gateway | docker push janakaras/gateway:latest | cd ..
       
     - name: Push the Reserve Docker image
-      run: docker push janakaras/reserve:latest
+      run: cd reserve | docker push janakaras/reserve:latest | cd ..
       
     - name: Push the Search Docker image
-      run: docker push janakaras/search:latest
+      run: cd search | docker push janakaras/search:latest | cd ..
