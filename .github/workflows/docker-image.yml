@@ -17,7 +17,7 @@ jobs:
       run: echo ${{secrets.DOCKERHUB_PASSWORD}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
       
     - name: Build the Apartments Docker image
-      run: cd apartments | docker build . --file dockerfile --tag janakaras/apartments:latest | cd ..
+      run: pwd | cd apartments | pwd | docker build . --file dockerfile --tag janakaras/apartments:latest | cd .. | pwd
       
     - name: Build the Gateway Docker image
       run: cd gateway | docker build . --file dockerfile --tag janakaras/gateway:latest | cd ..
