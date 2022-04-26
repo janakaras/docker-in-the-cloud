@@ -19,14 +19,6 @@ terraform {
   required_version = ">= 1.0.4"
 }
 
-#provider "aws" {
-#  profile    = "default"
-#  access_key = "ASIAWEEGKEYJTSE763NI"
-#  secret_key = "EaMAxHN9PF7RCVJ9QsDAuoGSeK+qZbSYEq3kxxV0"
-#  token      = "FwoGZXIvYXdzEID//////////wEaDHdWYGNElwst5EO3giLNAQmVIIT6YtdpRH660VFNZiBViwCWyzskT57qLSoTFC9I3Z3eHOE5wqx7ojwpldRKz3lve/TaXUeRmjlRiC30QeidoIcsHXtO/r5wglrd3TMHGvOdZY3YNPqb7A5qDflKbdAG/tsBXciKW30IOxew/r6bwHLSvysnDezLVVBuMaiGoro/euuP/+tITuc7Qist6vex5lnP6SEayetFofR398ANO/u79bgFA9ymYmlAm725u/RkCEueh5bDo8LGA9MMyy75Wrr4Qd37386KFjco8fiDkwYyLXFabwm9JKFXaSuXXrglewo3EffdgOyVVF+S6aGQhLCZrq/kQAOBlCWZnqx5ZQ=="
-#  region     = "us-east-1"
-#}
-
 provider "aws" {
   profile    = "default"
   access_key = var.AWS_ACCESS_KEY_ID
@@ -104,7 +96,31 @@ resource "aws_instance" "app_server" {
      Name = "EC2-with-Security-Rule-Port-5004"
    }
   
-#  user_data_replace_on_change = true
+  user_data_replace_on_change = true
+
+
+
+}
+
+# PRINTS THE IP
+output "ec2instance" {
+  value = aws_instance.app_server[0].public_ip
+}
+
+
+
+################################## OLD ##################################
+
+### old configuration of EC2 instance with hard coded keys ###
+
+#provider "aws" {
+#  profile    = "default"
+#  access_key = "ASIAWEEGKEYJTSE763NI"
+#  secret_key = "EaMAxHN9PF7RCVJ9QsDAuoGSeK+qZbSYEq3kxxV0"
+#  token      = "FwoGZXIvYXdzEID//////////wEaDHdWYGNElwst5EO3giLNAQmVIIT6YtdpRH660VFNZiBViwCWyzskT57qLSoTFC9I3Z3eHOE5wqx7ojwpldRKz3lve/TaXUeRmjlRiC30QeidoIcsHXtO/r5wglrd3TMHGvOdZY3YNPqb7A5qDflKbdAG/tsBXciKW30IOxew/r6bwHLSvysnDezLVVBuMaiGoro/euuP/+tITuc7Qist6vex5lnP6SEayetFofR398ANO/u79bgFA9ymYmlAm725u/RkCEueh5bDo8LGA9MMyy75Wrr4Qd37386KFjco8fiDkwYyLXFabwm9JKFXaSuXXrglewo3EffdgOyVVF+S6aGQhLCZrq/kQAOBlCWZnqx5ZQ=="
+#  region     = "us-east-1"
+#}
+
 
 #   provisioner "remote-exec" {
 #     inline = [
@@ -112,6 +128,9 @@ resource "aws_instance" "app_server" {
 #       "echo helloworld remote provisioner >> hello.txt",
 #     ]
 #   }
+
+
+### trying to use ssh ###
 
 #   connection {
 #     type    = "ssh"
@@ -121,12 +140,7 @@ resource "aws_instance" "app_server" {
 #     timeout = "4m"
 #   }
 
-}
 
-# PRINTS THE IP
-output "ec2instance" {
-  value = aws_instance.app_server[0].public_ip
-}
 
 #  resource "aws_key_pair" "deployer" {
 #  #  key_name   = "ec2-deployer-key-pair"
@@ -137,3 +151,5 @@ output "ec2instance" {
 # }
 
 # change 
+
+
