@@ -45,9 +45,10 @@ jobs:
           sudo yum install docker -y &&
           sudo service docker start &&
           sudo docker-compose up
+          sudo exit
         '
-    - name: Exit EC2 machine
-      run: exit
+#     - name: Exit EC2 machine
+#       run: exit
       
     - name: echo
       run: echo "hello"
