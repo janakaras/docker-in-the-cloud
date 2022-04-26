@@ -31,9 +31,9 @@ jobs:
     - name: copy key file 
       run: echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem
     - name: get files
-    - run: echo $(ls)
+      run: echo $(ls)
     - name: log in 
-    - run: sudo ssh -t -t -i key.pem ec2-user@34.199.41.94
+      run: sudo ssh -t -t -i key.pem ec2-user@34.199.41.94
     - name: echo
       run: echo "hello"
   
