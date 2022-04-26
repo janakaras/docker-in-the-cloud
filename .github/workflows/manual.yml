@@ -29,8 +29,8 @@ jobs:
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
     - name: copy key file 
-      #run: echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem
-      run: echo "${{ secrets.EC2_SSH_PRIVATE }}" > key.pem && chmod 600 key.pem | chmod 700 /root/.ssh | chmod 600 /root/.ssh/authorized_keys
+      run: echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem
+      #run: echo "${{ secrets.EC2_SSH_PRIVATE }}" > key.pem && chmod 600 key.pem | chmod 700 /root/.ssh | chmod 600 /root/.ssh/authorized_keys
     - name: get files
       run: echo $(ls)
     - name: log in 
