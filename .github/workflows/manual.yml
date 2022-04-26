@@ -28,3 +28,10 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
+    - name: copy key file 
+      run: echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem
+    - name: log in 
+      run: ssh -i key.pem ec2-user@3.94.166.176
+    - name: echo
+      run: echo "hello"
+  
