@@ -6,6 +6,7 @@ services:
       - "5001:5000"
     volumes:
       - ./data:/home/data
+    tty: true
 
   search:
     build: ./search
@@ -13,6 +14,7 @@ services:
       - "5002:5000"
     volumes:
       - ./data:/home/data
+    tty: true
   
   reserve:
     build: ./reserve
@@ -20,6 +22,7 @@ services:
       - "5003:5000"
     volumes:
       - ./data:/home/data
+    tty: true
   
   gateway:
     build: ./gateway
@@ -27,6 +30,7 @@ services:
       - "5004:5000"
     volumes:
       - ./data:/home/data
+    tty: true
       
   rabbitmq:
     image: rabbitmq:3-management-alpine
