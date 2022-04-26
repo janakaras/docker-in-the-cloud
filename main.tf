@@ -86,6 +86,7 @@ resource "aws_instance" "app_server" {
      sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
      sudo service docker start
      sudo docker-compose up
+#
 #      sudo yum -y install httpd
 #      sudo systemctl enable httpd
 #      sudo systemctl start httpd
