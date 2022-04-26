@@ -38,7 +38,7 @@ jobs:
           sudo unzip main.zip &&
           cd docker-in-the-cloud-main &&
           sudo service docker start &&
-          sudo docker-compose up -d
+          sudo docker-compose up --detach --force-recreate 
         '
 #     - name: Exit EC2 machine
 #       run: exit
