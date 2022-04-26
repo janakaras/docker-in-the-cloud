@@ -82,7 +82,6 @@ resource "aws_instance" "app_server" {
 #  key_name               = "ec2-deployer-key-pair"
 #  key_name = "github-actions"
  vpc_security_group_ids = [aws_security_group.main.id]
- user_data_replace_on_change = true
  user_data = <<EOF
      #! /bin/bash
      sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip
@@ -100,6 +99,7 @@ resource "aws_instance" "app_server" {
 #      sudo systemctl start httpd
 #      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
      EOF
+  user_data_replace_on_change = true
   
   tags = {
      Name = "EC2-with-Security-Rule-Port-5004"
