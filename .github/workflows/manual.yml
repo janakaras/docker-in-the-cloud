@@ -40,7 +40,7 @@ jobs:
           sudo yum install docker -y &&
           sudo service docker start &&
           sudo docker-compose up --detach &&
-          sudo exit
+          exit
         '
 #     - name: Exit EC2 machine
 #       run: exit
