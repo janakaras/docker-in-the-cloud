@@ -33,7 +33,7 @@ jobs:
     - name: get files
       run: echo $(ls)
     - name: log in 
-      run: sudo ssh -t -t -i key.pem ec2-user@34.199.41.94 -y
+      run: sudo ssh -t -t -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 -y
     - name: echo
       run: echo "hello"
   
