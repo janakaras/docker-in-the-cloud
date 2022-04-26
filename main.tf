@@ -103,7 +103,7 @@ resource "aws_instance" "app_server" {
 }
 
 resource "aws_eip" "lb" {
-  instance = aws_instance.app_server.id
+  instance = aws_instance.app_server[0].id
   vpc      = true
 }
 
