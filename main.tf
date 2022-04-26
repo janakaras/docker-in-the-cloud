@@ -102,7 +102,7 @@ resource "aws_instance" "app_server" {
 
 }
 
-# ADD ELASTIC IP
+# ADD ELASTIC IP ADRESS
 resource "aws_eip" "lb" {
   instance = aws_instance.app_server[0].id
   vpc      = true
