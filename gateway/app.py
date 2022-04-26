@@ -20,7 +20,7 @@ def find_service(name):
 # gateway hello world
 @app.route("/")
 def hello():
-    return "Hello World from the SSH!"
+    return "Hello World from the SSH2!"
 
 # Apartments
 @app.route("/apartments/apartments")
