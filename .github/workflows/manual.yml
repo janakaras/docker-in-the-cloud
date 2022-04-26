@@ -35,7 +35,7 @@ jobs:
         echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem | chmod 600 key.pem
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 '
           sudo service docker stop &&
-          sudo rm -r * &&
+          sudo rm -rf * &&
           sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
           sudo unzip main.zip &&
           cd docker-in-the-cloud-main &&
