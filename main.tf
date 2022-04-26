@@ -96,7 +96,7 @@ resource "aws_instance" "app_server" {
      Name = "EC2-with-Security-Rule-Port-5004"
    }
   
-  user_data_replace_on_change = true
+  # user_data_replace_on_change = true
 
 
 
