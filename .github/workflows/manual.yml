@@ -46,6 +46,9 @@ jobs:
         sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose 
         sudo service docker start
         sudo docker-compose up
+        
+    - name: Exit EC2 machine
+      run: exit
       
     - name: echo
       run: echo "hello"
