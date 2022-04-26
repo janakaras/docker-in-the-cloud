@@ -82,6 +82,7 @@ resource "aws_instance" "app_server" {
 #  key_name               = "ec2-deployer-key-pair"
 #  key_name = "github-actions"
  vpc_security_group_ids = [aws_security_group.main.id]
+ user_data_replace_on_change = true
  user_data = <<EOF
      #! /bin/bash
      sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip
