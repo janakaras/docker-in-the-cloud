@@ -32,6 +32,9 @@ jobs:
       run: |
         echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem | chmod 600 key.pem
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 '
+          cd docker-in-the-cloud-main &&
+          sudo docker-compose stop &&
+          cd .. &&
           sudo rm -r * &&
           sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
           sudo unzip main.zip &&
@@ -39,7 +42,7 @@ jobs:
           sudo yum update -y &&
           sudo yum install docker -y &&
           sudo service docker start &&
-          sudo docker-compose up --detach &&
+          sudo docker-compose up &&
           exit
         '
 #     - name: Exit EC2 machine
