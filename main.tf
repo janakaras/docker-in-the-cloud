@@ -99,11 +99,12 @@ resource "aws_instance" "app_server" {
 #      sudo systemctl start httpd
 #      sudo echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
      EOF
-  user_data_replace_on_change = true
   
   tags = {
      Name = "EC2-with-Security-Rule-Port-5004"
    }
+  
+  user_data_replace_on_change = true
 
 #   provisioner "remote-exec" {
 #     inline = [
