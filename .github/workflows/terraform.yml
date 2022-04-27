@@ -91,6 +91,22 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       
+    - name: log in and update
+      run: |
+        echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem | chmod 600 key.pem
+        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 '
+          sudo service docker stop &&
+          sudo rm -rf * &&
+          sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
+          sudo unzip main.zip &&
+          cd docker-in-the-cloud-main &&
+          sudo service docker start &&
+          sudo docker-compose up --detach --force-recreate --build
+        '
+      
+    - name: echo
+      run: echo "hello"
+      
   #  - name: Keep infrastructure
   #    run: sleep 600 
       
