@@ -1,6 +1,6 @@
 # This is a basic workflow that is manually triggered
 
-name: Manual workflow
+name: Hello world workflow
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -28,21 +28,4 @@ jobs:
     
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
-      
-    - name: log in and update
-      run: |
-        echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem | chmod 600 key.pem
-        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 '
-          sudo service docker stop &&
-          sudo rm -rf * &&
-          sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
-          sudo unzip main.zip &&
-          cd docker-in-the-cloud-main &&
-          sudo service docker start &&
-          sudo docker-compose up --detach --force-recreate --build
-        '
-      
-    - name: echo
-      run: echo "hello"
-  
+      run: echo "Hello ${{ github.event.inputs.name }}" 
