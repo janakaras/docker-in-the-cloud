@@ -42,7 +42,7 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'EC2 Main Workflow'
 
 on:
   push:
@@ -91,7 +91,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       
-    - name: log in and update
+    - name: SSH to EC2 and Update
       run: |
         echo "${{ secrets.EC2_SSH_PRIVATE }}" | tr -d '\r' > key.pem | chmod 600 key.pem
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@34.199.41.94 '
@@ -103,9 +103,6 @@ jobs:
           sudo service docker start &&
           sudo docker-compose up --detach --force-recreate --build
         '
-      
-    - name: echo
-      run: echo "hello"
       
   #  - name: Keep infrastructure
   #    run: sleep 600 
