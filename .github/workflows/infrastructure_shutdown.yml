@@ -1,0 +1,14 @@
+# This is a basic workflow that is manually triggered
+
+name: Infrastructure Shutdown
+
+on:
+  workflow_dispatch:
+
+jobs:
+  shutdown:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Terraform destroy
+      run: terraform destroy
