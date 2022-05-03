@@ -104,7 +104,7 @@ resource "aws_instance" "app_server" {
 #}
 
 resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.web.id
+  instance_id   = aws_instance.app_server.id
   allocation_id = aws_eip.example.id
 }
 
