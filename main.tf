@@ -94,13 +94,22 @@ resource "aws_instance" "app_server" {
 }
 
 # ADD ELASTIC IP ADRESS
-resource "aws_eip" "lb" {
-  instance = aws_instance.app_server[0].id
-  vpc      = true
-  
-  lifecycle {
-    prevent_destroy = true
-  }
+#resource "aws_eip" "lb" {
+#  instance = aws_instance.app_server[0].id
+#  vpc      = true
+#  
+#  lifecycle {
+#    prevent_destroy = true
+#  }
+#}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.web.id
+  allocation_id = aws_eip.example.id
+}
+
+resource "aws_eip" "example" {
+  vpc = true
 }
 
 # PRINTS THE IP
