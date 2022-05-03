@@ -93,24 +93,11 @@ resource "aws_instance" "app_server" {
 
 }
 
-# ADD ELASTIC IP ADRESS
-#resource "aws_eip" "lb" {
-#  instance = aws_instance.app_server[0].id
-#  vpc      = true
-#  
-#  lifecycle {
-#    prevent_destroy = true
-#  }
-#}
-
+# ATTACH EXISTING IP 
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.app_server[0].id
   allocation_id = "eipalloc-03b3b6b74fd213463"
 }
-
-#resource "aws_eip" "example" {
-#  vpc = true
-#}
 
 # PRINTS THE IP
 output "ec2instance" {
@@ -161,3 +148,14 @@ output "ec2instance" {
 # }
 
 # change
+
+# old resource for creating an elastic ip automatically 
+# ADD ELASTIC IP ADRESS
+#resource "aws_eip" "lb" {
+#  instance = aws_instance.app_server[0].id
+#  vpc      = true
+#  
+#  lifecycle {
+#    prevent_destroy = true
+#  }
+#}
