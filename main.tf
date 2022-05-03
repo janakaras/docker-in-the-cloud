@@ -97,6 +97,10 @@ resource "aws_instance" "app_server" {
 resource "aws_eip" "lb" {
   instance = aws_instance.app_server[0].id
   vpc      = true
+  
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # PRINTS THE IP
