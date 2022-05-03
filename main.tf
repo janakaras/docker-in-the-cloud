@@ -105,12 +105,12 @@ resource "aws_instance" "app_server" {
 
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.app_server[0].id
-  allocation_id = aws_eip.example.id
+  allocation_id = "eipalloc-03b3b6b74fd213463"
 }
 
-resource "aws_eip" "example" {
-  vpc = true
-}
+#resource "aws_eip" "example" {
+#  vpc = true
+#}
 
 # PRINTS THE IP
 output "ec2instance" {
