@@ -1,5 +1,5 @@
 FROM python:3.9-alpine
-WORKDIR /home
+WORKDIR $HOME
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY gateway/requirements.txt requirements.txt
