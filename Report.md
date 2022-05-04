@@ -10,11 +10,9 @@
 
 2. [ Implementation ](#impl)  
 
-<a name="desc"></a>
-## 1. Problem description
+## 1. Problem description <a name="desc"></a>
 
-<a name="status"></a>
-### 1.1 Status quo
+### 1.1 Status quo <a name="status"></a>
 
 The starting point of the project will be a Docker-based web application for managing apartments that the students of the Software Engineering Master developed in 
 the last semester. The application can be cloned from the unibz instance of GitLab:  
@@ -28,20 +26,36 @@ The core part of the application consists of three docker containers that contai
 The containers communicate via a RabbitMQ Message Queue which resides in another container. Furthermore, the application has a Portainer container 
 for managing the containers and a Consul container for Service Registry.
 
-<a name="goal"></a>
-### 1.2 Goal
+### 1.2 Goal <a name="goal"></a>
 
  The ultimate goal is to deploy the application in the cloud. The deployment should be detached from any local machines restrictions. 
  Several AWS cloud options will be evaluated like EC2, Lambda, ECS or Elastic Beanstalk.
  
- <a name="impl"></a>
-## 2. Implementation
-1. Movement of the project to GitHub to be able to use GitHub Actions  
-2. First Github Action that prints "Hello World"
-3. Set up of Github Actions workflow that uses Terraform to start an EC2 machine in the AWS Lab.
-4. Installation of Docker on the EC2 machine via SSH from local machine
-5. Installation of Docker Compose on the EC2 machine via SSH from local machine
-6. Uploading the application to the EC2 machine via SSH from local machine (Problem: ports are not working -> adjustment of security group)
+## 2. Implementation <a name="impl"></a>
+ 
+### 2.1. GitHub and GitHub Actions <a name="git"></a>
+ 
+ The whole existing Docker-based web application is moved to [GitHub](https://github.com/). The online software development platform based on the open-source version control software Git is suited well for us to work on the project in a team and provides a base for deploying our software online.  
+ GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). With GitHub Actions we will be able to design workflows which will be triggered by for example changes in the applications code that are pushed to GitHub. With GitHub Actions we will be able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
+ 
+ In a first step we create a workflow in GitHub Actions that prints "Hello World" after a push event in the repository.
+ 
+### 2.2. Terraform and AWS <a name="terraform"></a>
+
+In a next step we want to set up a cloud infrastructure where we can deploy our software. For this we want to use the open source infrastructure as code (IaC) software tool HashiCorp's [Terraform](https://www.terraform.io/) that let's you  build, change, and version public cloud infrastructure such as for example [AWS](https://aws.amazon.com/). On AWS we want to use in a first set up an Amazon Elastic Compute Cloud ([Amazon EC2](https://aws.amazon.com/ec2/)) instance.  AWS provides a great amount of EC2 instances with different configurations of CPU, memory, storage and networking resources. With the AWS Free Tier we have some options to try our setup on Linux t2.micro instances for free.  
+In a GitHub Actions workflow we want to use Terraform to start an EC2 instance where we can deploy our application later. For this we set up a file 'main.yml' in the GitHub Actions workflows and a file 'main.tf' in the home directory of our GitHub project. In the workflow the Terraform CLI is installed and configured. Now terraform uses the configuration details in the 'main.tf' to install and start an EC2 instance currently in the course's Lab's account. For now this instance is not doing anything.  
+The next goal is to upload our application and run it on the created EC2 instance.
+
+### 2.2. Docker <a name="docker"></a>
+
+The application is composed of Docker containers. [Docker](https://www.docker.com/) is a software framework for building, running, and managing containers on servers and the cloud. A Docker container image is a package of software that includes everything needed to run an application. Our application is made of several containers which can be run by the tool [Docker Compose](https://docs.docker.com/compose/).  
+To run our application on AWS we need to install Docker and Docker Compose on the EC2 instance. We start to do the installation locally via Secure Socket Shell (SSH). From our runnig EC2 instance we can download the private key and get the public DNS name and user name so we can connect to the instance from a terminal from a local machine. With some shell commands we can install Docker and Docker Compose on the EC2 instance.
+
+### 2.2. Deployment of application on EC2 instance <a name="ec2_deployment"></a>
+
+In a frirst step we try to run the application on the EC2 machine from a local machine via SSH. We manage to start our application on the EC2 instance, but the ports are not working to show the output of the app in the Browser. By adjusting the security group of the EC2 instance we manage to connect to the ports of the instance. We adjust the configuration of the EC2 instance in the Terraform configuration in the file 'main.tf'.
+
+
 7. Creation of an EC2 instance with required security rule via GitHub Actions and Terraform
 8. Failing of finding a solution to use SSH in GitHub Actions to run application on EC2 machine
 9. Set up of new GitHub Action to publish the single images of the application to DockerHub
