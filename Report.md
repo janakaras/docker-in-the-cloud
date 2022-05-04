@@ -9,6 +9,10 @@
 1.2 [ Goal ](#goal)
 
 2. [ Implementation ](#impl)  
+2.1 [ GitHub and GitHub Actions ](#git)  
+2.2 [ Terraform and AWS ](#terraform)
+2.3 [ Docker ](#docker)  
+2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)
 
 ## 1. Problem description <a name="desc"></a>
 
@@ -33,25 +37,25 @@ for managing the containers and a Consul container for Service Registry.
  
 ## 2. Implementation <a name="impl"></a>
  
-### 2.1. GitHub and GitHub Actions <a name="git"></a>
+### 2.1 GitHub and GitHub Actions <a name="git"></a>
  
  The whole existing Docker-based web application is moved to [GitHub](https://github.com/). The online software development platform based on the open-source version control software Git is suited well for us to work on the project in a team and provides a base for deploying our software online.  
  GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). With GitHub Actions, we will be able to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we will be able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
  
  In a first step, we create a workflow in GitHub Actions that prints "Hello World" after a push event in the repository.
  
-### 2.2. Terraform and AWS <a name="terraform"></a>
+### 2.2 Terraform and AWS <a name="terraform"></a>
 
 In a next step, we want to set up a cloud infrastructure where we can deploy our software. For this we want to use the open source infrastructure as code (IaC) software tool HashiCorp's [Terraform](https://www.terraform.io/) that lets you  build, change, and version public cloud infrastructure such as for example [AWS](https://aws.amazon.com/). On AWS, we want to use in a first set up an Amazon Elastic Compute Cloud ([Amazon EC2](https://aws.amazon.com/ec2/)) instance.  AWS provides a great amount of EC2 instances with different configurations of CPU, memory, storage and networking resources. With the AWS Free Tier, we have some options to try our setup on Linux t2.micro instances for free.  
 In a GitHub Actions workflow, we want to use Terraform to start an EC2 instance where we can deploy our application later. For this, we set up a file 'main.yml' in the GitHub Actions workflows and a file 'main.tf' in the home directory of our GitHub project. In the workflow, the Terraform CLI is installed and configured. Now, terraform uses the configuration details in the 'main.tf' to install and start an EC2 instance currently in the course's Lab's account. For now, this instance is not doing anything.  
 The next goal is to upload our application and run it on the created EC2 instance.
 
-### 2.3. Docker <a name="docker"></a>
+### 2.3 Docker <a name="docker"></a>
 
 The application is composed of Docker containers. [Docker](https://www.docker.com/) is a software framework for building, running, and managing containers on servers and the cloud. A Docker container image is a package of software that includes everything needed to run an application. Our application is made of several containers which can be run by the tool [Docker Compose](https://docs.docker.com/compose/).  
 To run our application on AWS, we need to install Docker and Docker Compose on the EC2 instance. We start to do the installation locally via Secure Socket Shell (SSH). From our running EC2 instance we can download the private key and get the public DNS name and username, so we can connect to the instance from a terminal from a local machine. With some shell commands, we can install Docker and Docker Compose on the EC2 instance.
 
-### 2.4. Deployment of application on EC2 instance <a name="ec2_deployment"></a>
+### 2.4 Deployment of application on EC2 instance <a name="ec2_deployment"></a>
 
 In a first step, we try to run the application on the EC2 machine from a local machine via SSH. We manage to start our application on the EC2 instance, but the ports are not working to show the output of the app in the Browser. By adjusting the security group of the EC2 instance, we manage to connect to the ports of the instance. We adjust the configuration of the EC2 instance in the Terraform configuration in the file 'main.tf'.  
 After managing to run the application on AWS accessing the instance from the local machine, we want to have the whole process managed by the GitHub Actions. In Order to do that, we need to access the instance in the workflow. The idea to use SSH to connect fails, because there seems to be no solution for getting the private key from the newly created EC2 instance.
