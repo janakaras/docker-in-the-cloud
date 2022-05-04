@@ -91,7 +91,7 @@ jobs:
     - name: SSH to EC2 and Update
       run: |
         echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem
-        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.85.140.0 '
+        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.162.245.72 '
           sudo service docker start &&
           sudo rm -rf * && 
           cp /github/workspace/docker-compose.yml docker-compose.yml &&
