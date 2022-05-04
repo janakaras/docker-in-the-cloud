@@ -96,7 +96,7 @@ resource "aws_instance" "app_server" {
 # ATTACH EXISTING IP 
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.app_server[0].id
-  allocation_id = "eipalloc-03b3b6b74fd213463"
+  allocation_id = "eipalloc-07c50d7fda5feeaa6"
 }
 
 # PRINTS THE IP
