@@ -3,8 +3,8 @@ WORKDIR /home
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY gateway/requirements.txt requirements.txt
-# RUN pip install -r requirements.txt
-# RUN apk add sqlite
+RUN pip install -r requirements.txt
+RUN apk add sqlite
 EXPOSE 5000
 COPY . .
-# CMD ["python", "app.py"]
+CMD ["python", "app.py"]
