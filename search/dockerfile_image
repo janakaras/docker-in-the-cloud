@@ -8,3 +8,4 @@ RUN apk add sqlite
 EXPOSE 5000
 COPY . .
 CMD ["python", "app.py"]
+RUN cd ..
