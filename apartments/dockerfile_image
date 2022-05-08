@@ -1,6 +1,7 @@
 FROM python:3.9-alpine
-COPY /apartments /home/apartments
-WORKDIR /home/apartments
+MKDIR apartments
+WORKDIR /apartments
+COPY /apartments /apartments
 RUN echo $(ls)
 RUN pwd
 ENV FLASK_APP=app.py
