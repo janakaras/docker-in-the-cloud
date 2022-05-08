@@ -1,5 +1,4 @@
 FROM python:3.9-alpine
-MKDIR apartments
 WORKDIR /apartments
 COPY /apartments /apartments
 RUN echo $(ls)
