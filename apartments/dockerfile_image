@@ -1,14 +1,13 @@
 FROM python:3.9-alpine
-# WORKDIR /apartments
 WORKDIR /home
 RUN pwd
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
-COPY apartments/requirements.txt requirements.txt
-COPY app.py app.py
+COPY apartments apartments
+RUN cd apartments
 RUN pip install -r requirements.txt
 RUN apk add sqlite
 EXPOSE 5000
-COPY . .
+# COPY . .
 CMD ["python", "app.py"]
-# WORKDIR ..
+
