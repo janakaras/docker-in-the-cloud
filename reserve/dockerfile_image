@@ -1,11 +1,11 @@
 FROM python:3.9-alpine
-# WORKDIR /reserve
-ENV FLASK_APP=reserve/app.py
+WORKDIR /reserve
+ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY reserve/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN apk add sqlite
 EXPOSE 5000
 COPY . .
-CMD ["python", "reserve/app.py"]
-RUN cd ..
+CMD ["python", "app.py"]
+WORKDIR ..
