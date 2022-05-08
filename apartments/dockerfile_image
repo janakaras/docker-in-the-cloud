@@ -4,7 +4,9 @@ RUN pwd
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY apartments apartments
+RUN ls
 WORKDIR /apartments
+RUN ls
 RUN pip install -r requirements.txt
 RUN apk add sqlite
 EXPOSE 5000
