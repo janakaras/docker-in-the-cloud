@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 WORKDIR /apartments
-RUN ls
+RUN pwd
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY apartments/requirements.txt requirements.txt
