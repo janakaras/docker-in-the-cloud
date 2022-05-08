@@ -4,9 +4,10 @@ RUN pwd
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 COPY apartments/requirements.txt requirements.txt
+COPY apartments/app.py apartments.py
 RUN pip install -r requirements.txt
 RUN apk add sqlite
 EXPOSE 5000
 COPY . .
-CMD ["python", "apartments/app.py"]
+CMD ["python", "apartments.py"]
 # WORKDIR ..
