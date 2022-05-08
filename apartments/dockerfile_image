@@ -1,7 +1,7 @@
 FROM python:3.9-alpine
 COPY /apartments /home/apartments
 WORKDIR /home/apartments
-RUN ls
+RUN echo $(ls)
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 # COPY apartments/requirements.txt requirements.txt
