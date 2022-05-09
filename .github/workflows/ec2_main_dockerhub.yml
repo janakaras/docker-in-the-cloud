@@ -88,8 +88,6 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       
-    - name: TEST 
-      run: lrp /github/workspace/docker-compose.dockerhub.yml
       
     - name: SSH to EC2 and Update
       run: |
