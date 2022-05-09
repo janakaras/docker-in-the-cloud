@@ -3,10 +3,7 @@ WORKDIR /search
 COPY /search /search
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
-# COPY search/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN apk add sqlite
 EXPOSE 5000
-# COPY . .
 CMD ["python", "app.py"]
-# WORKDIR ..
