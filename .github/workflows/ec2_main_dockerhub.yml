@@ -98,6 +98,9 @@ jobs:
           sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
           sudo unzip main.zip &&
           cd docker-in-the-cloud-main &&
+          docker-compose stop
+          docker-compose rm -f
+          docker-compose -f docker-compose.dockerhub.yml pull   
           sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
         '
       
