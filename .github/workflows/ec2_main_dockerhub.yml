@@ -45,9 +45,10 @@
 name: 'EC2 Main Dockerhub Workflow'
 
 on:
-  workflow_dispatch
-#   repository_dispatch:
-#     types: [trigger-workflow-dockerhub]
+  workflow_run:
+    workflows: [Docker Image CI]
+    types:
+      - completed
 
 jobs:
   terraform:
