@@ -96,10 +96,11 @@ jobs:
         echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo service docker start &&
-          sudo rm -rf * && 
-          cp /github/workspace/docker-compose.dockerhub.yml docker-compose.yml &&
-          cp /github/workspace/data/. data &&
-          sudo docker-compose up --detach --force-recreate --build
+          sudo rm -rf * &&
+          sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
+          sudo unzip main.zip &&
+          cd docker-in-the-cloud-main &&
+          sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
         '
       
   #  - name: Keep infrastructure
