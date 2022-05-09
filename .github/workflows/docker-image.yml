@@ -40,8 +40,8 @@ jobs:
     - name: Push the Search Docker image
       run: docker push janakaras/search:latest
       
-    - name: Trigger next workflow
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        event-type: trigger-workflow-dockerhub
+#     - name: Trigger next workflow
+#       if: success()
+#       uses: peter-evans/repository-dispatch@v1
+#       with:
+#         event-type: trigger-workflow-dockerhub
