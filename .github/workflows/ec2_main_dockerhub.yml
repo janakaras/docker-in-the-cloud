@@ -98,10 +98,10 @@ jobs:
           sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
           sudo unzip main.zip &&
           cd docker-in-the-cloud-main &&
-          docker-compose rm janakaras/apartments
-          docker-compose rm janakaras/reserve
-          docker-compose rm janakaras/search
-          docker-compose rm janakaras/gateway
+          docker rm janakaras/apartments
+          docker rm janakaras/reserve
+          docker rm janakaras/search
+          docker rm janakaras/gateway
           sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
         '
       
