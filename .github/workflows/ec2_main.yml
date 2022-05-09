@@ -45,11 +45,11 @@
 name: 'EC2 Main Workflow'
 
 on:
-#  workflow_dispatch
-  push:
-      branches:
-        - main
-  pull_request:
+ workflow_dispatch
+#   push:
+#       branches:
+#         - main
+#   pull_request:
 
 jobs:
   terraform:
