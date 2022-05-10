@@ -93,8 +93,8 @@ jobs:
       
     - name: Get SSH key
       run: |
-        mkdir /.ssh
-        chmod 700 /.ssh
+        sudo mkdir /.ssh
+        sudo chmod 700 /.ssh
         cd /.ssh
         echo "${{ secrets.CC_UNI }}"  > ~/.ssh/key.pem
         sudo chmod 600 ~/.ssh/key.pem
