@@ -44,11 +44,12 @@
 
 name: 'EC2 Main Dockerhub Workflow'
 on:
-  workflow_dispatch
-#   workflow_run:
-#     workflows: [Docker Image CI]
-#     types:
-#       - completed
+  workflow_dispatch:
+  
+  workflow_run:
+    workflows: [Docker Image CI]
+    types:
+      - completed
 
 jobs:
   terraform:
@@ -108,7 +109,6 @@ jobs:
     - name: SSH to EC2 and 
       run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
-          sudo service docker stop &&
           sudo docker image rm -f janakaras/apartments &&
           sudo docker image rm -f janakaras/reserve &&
           sudo docker image rm -f janakaras/search &&
