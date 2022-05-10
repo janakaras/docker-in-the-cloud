@@ -102,8 +102,8 @@ jobs:
         
     - name: Transfer Files
       run: |
-        scp -r ./key.pem /data ec2-user@54.80.67.161:/
-        scp -i ./key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/
+        sudo scp -r ./key.pem /data ec2-user@54.80.67.161:/
+        sudo scp -i ./key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/
       
       
     - name: SSH to EC2 and 
