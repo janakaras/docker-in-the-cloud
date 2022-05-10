@@ -102,7 +102,7 @@ jobs:
     - name: Transfer Files
       run: |
         #scp -o IdentityFile key.pem -r /data ec2-user@54.80.67.161:/home/ec2-user
-        scp -o IdentityFile key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
+        scp -o IdentityFile=key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
       
       
     - name: SSH to EC2 and 
