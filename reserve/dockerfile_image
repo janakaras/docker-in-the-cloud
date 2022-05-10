@@ -5,5 +5,5 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 RUN pip install -r requirements.txt
 RUN apk add sqlite
-EXPOSE 5000.
+EXPOSE 5000
 CMD ["python", "app.py"]
