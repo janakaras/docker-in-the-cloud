@@ -92,28 +92,22 @@ jobs:
 #       run: terraform apply -auto-approve
       
     - name: Get SSH key
-      run: |
-        sudo mkdir /.ssh
-        sudo chmod 700 /.ssh
-        usdo echo "${{ secrets.CC_UNI }}"  > /.ssh/key.pem
-        sudo chmod 600 /.ssh/key.pem
-        
-        # echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
+      run:  echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
         
     - name: Clean EC2 machine 
-      run: ssh -o StrictHostKeyChecking=no -i /.ssh/key.pem ec2-user@54.80.67.161 '
+      run: ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo rm -rf * 
         '
         
     - name: Transfer Files
       run: |
-        scp -vvv -r /.ssh/key.pem /data ec2-user@54.80.67.161:/home/ec2-user
-        scp -vvv -i /.ssh/key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
+        scp -r key.pem /data ec2-user@54.80.67.161:/home/ec2-user
+        scp -i key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
       
       
     - name: SSH to EC2 and 
       run: |
-        ssh -o StrictHostKeyChecking=no -i /.ssh/key.pem ec2-user@54.80.67.161 '
+        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo service docker start &&
           sudo docker image rm -f janakaras/apartments &&
           sudo docker image rm -f janakaras/reserve &&
