@@ -109,11 +109,11 @@ jobs:
     - name: SSH to EC2 and 
       run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
+          sudo service docker start &&
           sudo docker image rm -f janakaras/apartments &&
           sudo docker image rm -f janakaras/reserve &&
           sudo docker image rm -f janakaras/search &&
           sudo docker image rm -f janakaras/gateway &&
-          sudo service docker start &&
           sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
         '
       
