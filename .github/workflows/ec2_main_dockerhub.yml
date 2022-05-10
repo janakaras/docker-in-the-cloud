@@ -110,7 +110,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo service docker start &&
-          sudo docker-compose docker-compose -f docker-compose.dockerhub.yml down && 
+          sudo docker-compose -f docker-compose.dockerhub.yml down && 
           sudo docker system prune &&
           sudo docker image rm -f janakaras/apartments &&
           sudo docker image rm -f janakaras/reserve &&
