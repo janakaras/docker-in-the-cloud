@@ -65,9 +65,6 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-    
-    - name: List stuff
-      run: echo $(ls)
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -94,16 +91,25 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       
-      
-    - name: SSH to EC2 and Update
-      run: |
+    - name: Get SSH key
+      run:
         echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem
+        
+    - name: Clean EC2 machine 
+        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
+          sudo rm -rf * 
+        '
+        
+    - name: Transfer Files
+      run: |
+        scp -i ./key.pem /data ec2-user@54.80.67.161:/
+        scp -i ./key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/
+      
+      
+    - name: SSH to EC2 and 
+      run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo service docker start &&
-          sudo rm -rf * &&
-          sudo wget https://github.com/janakaras/docker-in-the-cloud/archive/refs/heads/main.zip &&
-          sudo unzip main.zip &&
-          cd docker-in-the-cloud-main &&
           sudo docker image rm -f janakaras/apartments &&
           sudo docker image rm -f janakaras/reserve &&
           sudo docker image rm -f janakaras/search &&
