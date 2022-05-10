@@ -43,12 +43,12 @@
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
 name: 'EC2 Main Dockerhub Workflow'
-
 on:
-  workflow_run:
-    workflows: [Docker Image CI]
-    types:
-      - completed
+  workflow_dispatch
+#   workflow_run:
+#     workflows: [Docker Image CI]
+#     types:
+#       - completed
 
 jobs:
   terraform:
