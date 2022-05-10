@@ -93,7 +93,7 @@ jobs:
       
     - name: Get SSH key
       run:
-        echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem | ssh-add key.pem
+        echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem | eval `ssh-agent -s` | ssh-add key.pem
         
     - name: Clean EC2 machine 
       run: ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
