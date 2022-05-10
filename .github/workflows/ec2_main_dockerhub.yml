@@ -96,7 +96,7 @@ jobs:
         echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem
         
     - name: Clean EC2 machine 
-        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
+      run: ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
           sudo rm -rf * 
         '
         
