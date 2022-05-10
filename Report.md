@@ -12,7 +12,7 @@
 2.1 [ GitHub and GitHub Actions ](#git)  
 2.2 [ Terraform and AWS ](#terraform)
 2.3 [ Docker ](#docker)  
-2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)
+2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)  
 2.5 [ Deployment of application on EC2 instance  - Alternative ](#ec2_deployment_alt)
 
 ## 1. Problem description <a name="desc"></a>
