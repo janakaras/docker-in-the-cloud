@@ -13,6 +13,7 @@
 2.2 [ Terraform and AWS ](#terraform)
 2.3 [ Docker ](#docker)  
 2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)
+2.5 [ Deployment of application on EC2 instance  - Alternative ](#ec2_deployment_alt)
 
 ## 1. Problem description <a name="desc"></a>
 
@@ -78,7 +79,7 @@ Since having an elastic IP constantly assigned to our account is not for free, w
 To shut down a running instance, we set up another GitHub Action, that shuts down the EC2 machine when manually triggered.
 
 
-### 2.4 Deployment of application on EC2 instance  - alternative <a name="ec2_deployment_alt"></a>
+### 2.5 Deployment of application on EC2 instance  - Alternative <a name="ec2_deployment_alt"></a>
 
 As an alternative to the upload via the .zip link we follow our started set up, where we push the images of the single docker containers to Docker Hub via a separate GitHub Actions workflow. I a second consequent workflow we use SSH to access the EC2 machine, take the images from Docker Hub and run docker compose up to start the application on the EC2 instance.
 
