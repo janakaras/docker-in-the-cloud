@@ -95,10 +95,8 @@ jobs:
       run: |
         sudo mkdir /.ssh
         sudo chmod 700 /.ssh
-        cd /.ssh
-        echo "${{ secrets.CC_UNI }}"  > ~/.ssh/key.pem
-        sudo chmod 600 ~/.ssh/key.pem
-        cd ..
+        echo "${{ secrets.CC_UNI }}"  > /.ssh/key.pem
+        sudo chmod 600 /.ssh/key.pem
         
         # echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
         
