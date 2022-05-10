@@ -93,10 +93,12 @@ jobs:
       
     - name: Get SSH key
       run: |
-        mkdir -p ~/.ssh/
-        sudo chmod 700 /.ssh
-        echo "${{ secrets.CC_UNI }}"  > ../key.pem
-        sudo chmod 600 ../key.pem
+        mkdir .ssh
+        sudo chmod 700 .ssh
+        cd .ssh
+        echo "${{ secrets.CC_UNI }}"  > key.pem
+        sudo chmod 600 key.pem
+        cd ..
         # echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
         
     - name: Clean EC2 machine 
