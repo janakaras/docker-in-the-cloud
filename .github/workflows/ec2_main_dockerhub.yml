@@ -102,8 +102,8 @@ jobs:
         
     - name: Transfer Files
       run: |
-        sudo scp -o StrictHostKeyChecking=no -r ./key.pem /data ec2-user@54.80.67.161:/home/ec2-user
-        sudo scp -o StrictHostKeyChecking=no -i ./key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
+        scp -r key.pem /data ec2-user@54.80.67.161:/home/ec2-user
+        scp -i key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
       
       
     - name: SSH to EC2 and 
