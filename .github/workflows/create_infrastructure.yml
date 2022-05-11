@@ -1,4 +1,4 @@
-name: 'Create Infrastructure Workflow'
+name: 'Create Infrastructure'
 on:
   workflow_dispatch:
   
@@ -9,7 +9,7 @@ on:
 
 jobs:
   terraform:
-    name: 'Create Infrastructure Workflow'
+    name: 'Create Infrastructure'
     runs-on: ubuntu-latest
     environment: production
 
