@@ -27,18 +27,7 @@ jobs:
     steps:
     
     - uses: actions/checkout@master
-#     - name: copy file
-#       uses: canastro/copy-file-action@master
-#       with:
-#         source: "README.md"
-#         target: "readme.md"
-        
-    - name: print stuff
-      run: echo $(ls)
     
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}" 
-    
-    - name: Print File
-      run: cat github/workspace/README.md
