@@ -9,11 +9,13 @@ on:
 
 jobs:
 
-  steps:
-  # Checkout the repository to the GitHub Actions runner
-  - name: Checkout
-    uses: actions/checkout@v3
+ build:
 
+  runs-on: ubuntu-latest
+
+  steps:
+
+  - uses: actions/checkout@v3
   - name: Get SSH key
     run:  echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
 
@@ -40,5 +42,3 @@ jobs:
         sudo docker image rm -f janakaras/gateway &&
         sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
       '
-    
-
