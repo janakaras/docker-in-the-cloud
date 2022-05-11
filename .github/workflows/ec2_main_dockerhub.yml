@@ -3,42 +3,42 @@ on:
   workflow_dispatch:
   
   workflow_run:
-    workflows: [Docker Image CI]
+    workflows: [Create Infrastructure]
     types:
       - completed
 
 jobs:
 
-    steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-    - name: Get SSH key
-      run:  echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
-        
-    - name: Clean EC2 machine 
-      run: ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
-          sudo rm -rf * 
-        '
-        
-    - name: Transfer Files
-      run: |
-        scp -o IdentityFile=key.pem -r ./data ec2-user@54.80.67.161:/home/ec2-user
-        scp -o IdentityFile=key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
-      
-      
-    - name: SSH to EC2 and 
-      run: |
-        ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
-          sudo service docker start &&
-          sudo docker-compose -f docker-compose.dockerhub.yml down && 
-          sudo docker system prune &&
-          sudo docker image rm -f janakaras/apartments &&
-          sudo docker image rm -f janakaras/reserve &&
-          sudo docker image rm -f janakaras/search &&
-          sudo docker image rm -f janakaras/gateway &&
-          sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
-        '
+  steps:
+  # Checkout the repository to the GitHub Actions runner
+  - name: Checkout
+    uses: actions/checkout@v3
+
+  - name: Get SSH key
+    run:  echo "${{ secrets.CC_UNI }}" | tr -d '\r' > key.pem | chmod 600 key.pem 
+
+  - name: Clean EC2 machine 
+    run: ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
+        sudo rm -rf * 
+      '
+
+  - name: Transfer Files
+    run: |
+      scp -o IdentityFile=key.pem -r ./data ec2-user@54.80.67.161:/home/ec2-user
+      scp -o IdentityFile=key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
+
+
+  - name: SSH to EC2 and 
+    run: |
+      ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
+        sudo service docker start &&
+        sudo docker-compose -f docker-compose.dockerhub.yml down && 
+        sudo docker system prune &&
+        sudo docker image rm -f janakaras/apartments &&
+        sudo docker image rm -f janakaras/reserve &&
+        sudo docker image rm -f janakaras/search &&
+        sudo docker image rm -f janakaras/gateway &&
+        sudo docker-compose -f docker-compose.dockerhub.yml up --detach --force-recreate --build
+      '
     
 
