@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   
   workflow_run:
-    workflows: [Docker Image CI]
+    workflows: [Image Create & Push to Dockerhub]
     types:
       - completed
 
