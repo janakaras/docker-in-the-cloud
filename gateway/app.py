@@ -20,7 +20,7 @@ def find_service(name):
 # gateway hello world
 @app.route("/")
 def hello():
-    return "Overseeable message 3"
+    return "Overseeable message 4"
 
 # Apartments
 @app.route("/apartments/apartments")
