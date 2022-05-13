@@ -6,15 +6,24 @@
 
 1. [ Problem description ](#desc)  
     1.1 [ Starting Point ](#start)  
-        1.1.1 [ Details of the Docker Application ](#docker_details)  
     1.2 [ Goal ](#goal)
 
-2. [ Implementation ](#impl)  
-    2.1 [ GitHub and GitHub Actions ](#git)  
-    2.2 [ Terraform and AWS ](#terraform)  
-    2.3 [ Docker ](#docker)  
-    2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)  
-    2.5 [ Deployment of application on EC2 instance  - Alternative ](#ec2_deployment_alt)  
+2. [ Basic Structure and Tools ](#basic_tools)  
+    2.1 [ Basic Structure ](#basic_structure)  
+    2.2 [ Docker ](#docker)  
+    2.3 [ GitHub Actions ](#github_actions)  
+    2.4 [ Terraform ](#terraform)  
+    2.5 [ AWS ](#aws)  
+
+3. [ Final Implementation ](#impl)  
+    3.1 [ Solution 1 - zip ](#zip)  
+    3.2 [ Solution 2 - Docker Hub ](#docker_hub)  
+
+4. [ Challenges in the Progress ](#challenges)  
+
+5. [ Discussion ](#discussion)  
+
+6. [ Conclusion ](#conclusion)  
 
 ## 1. Problem description <a name="desc"></a>
 
@@ -32,7 +41,7 @@ The core part of the application consists of three docker containers that contai
 The containers communicate via a RabbitMQ Message Queue, which resides in another container. Furthermore, the application has a Portainer container 
 for managing the containers and a Consul container for Service Registry.
 
-#### 1.1.1 Details of the Docker Application <a name="docker_details"></a>
+#### Details of the Docker Application <a name="docker_details"></a>
 
 ##### How to access
 
@@ -59,27 +68,47 @@ Open 54.80.67.161:5004. You will be on the homepage.
 
 ### 1.2 Goal <a name="goal"></a>
 
- The ultimate goal is to deploy the application in the cloud. The deployment should be detached from any local machines restrictions. 
- Several AWS cloud options will be evaluated like EC2, Lambda, ECS or Elastic Beanstalk.
+The goal was to deploy our web application in the cloud. All included steps such as setting up the infrastructure, upload the application to the cloud environment, starting the app in the cloud, etc. were supposed to be automated in a CI/CD-Pipeline.
  
-## 2. Implementation <a name="impl"></a>
- 
-### 2.1 GitHub and GitHub Actions <a name="git"></a>
- 
- We moved the whole existing Docker-based web application to [GitHub](https://github.com/). The online software development platform based on the open-source version control software Git was suited well for us to work on the project in a team and provided a base for deploying our software online.  
-GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). GitHub Actions enables you to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we were able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
-There are a lot of public available Github Actions, that we could for example use to set up our infrastructure to deploy the application in the cloud.
- 
-### 2.2 Terraform and AWS <a name="terraform"></a>
+## 2. Basic Structure and Tools <a name="basic_tools"></a>
 
-In a next step, we want to set up a cloud infrastructure where we can deploy our software. For this we want to use the open source infrastructure as code (IaC) software tool HashiCorp's [Terraform](https://www.terraform.io/) that lets you  build, change, and version public cloud infrastructure such as for example [AWS](https://aws.amazon.com/). On AWS, we want to use in a first set up an Amazon Elastic Compute Cloud ([Amazon EC2](https://aws.amazon.com/ec2/)) instance to deploy our application.  AWS provides a great amount of EC2 instances with different configurations of CPU, memory, storage and networking resources. With the AWS Free Tier, we have some options to try our setup on Linux t2.micro instances for free.  
-In a GitHub Actions workflow, we want to use Terraform to start an EC2 instance where we can deploy our application later. For this, we set up a file 'main.yml' in the GitHub Actions workflows and a file 'main.tf' in the home directory of our GitHub project. In the workflow, the Terraform CLI is installed and configured. Now, Terraform uses the configuration details in the 'main.tf' to install and start an EC2 instance currently in the course's Lab's account. For now, this instance is not doing anything.  
-The next goal is to upload our application and run it on the created EC2 instance.
+### 2.1 Basic Structure <a name="basic_structure"></a>
 
-### 2.3 Docker <a name="docker"></a>
+We moved the whole existing Docker-based web application to GitHub, so we could work together on the project as a team. Also, GitHub provided the general framework to set up automated workflows to deploy our app in the cloud with GitHub Actions. In such a workflow, we used Terraform to set up the cloud infrastructure and created a virtual machine on the cloud platform AWS where we could deploy our web app by using Docker to upload and run the application.
+
+(Should we include the "Basic Idea" graphic from the presentation here?)
+
+### 2.2 Docker <a name="docker"></a>
 
 The application is composed of Docker containers. [Docker](https://www.docker.com/) is a software framework for building, running, and managing containers on servers and the cloud. A Docker container image is a package of software that includes everything needed to run an application. Our application is made of several containers which can be run by the tool [Docker Compose](https://docs.docker.com/compose/).  
-To run our application on AWS, we need to install Docker and Docker Compose on the EC2 instance. We start to do the installation locally via Secure Socket Shell (SSH). From our running EC2 instance we can download the private key and get the public DNS name and username, so we can connect to the instance in a terminal from a local machine. With some shell commands, we can install Docker and Docker Compose on the EC2 instance.
+Both Docker and Docker Compose needed to be installed on the virtual machine in the cloud.  
+To deliver the images of our application to the cloud, we used the option to save them on [Docker Hub](https://hub.docker.com/). Docker Hub is a hosted repository service provided by Docker for finding and sharing container images with your team.
+
+### 2.3 GitHub Actions <a name="github_actions"></a>
+
+We used [GitHub](https://github.com/), an online software development platform based on the open-source version control software Git, to collaborate on the project together. GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). GitHub Actions enables you to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we were able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
+There are a lot of public available GitHub Actions, that we could for example use to set up our infrastructure to deploy the application in the cloud.
+
+### 2.4 Terraform <a name="terraform"></a>
+
+To set up the cloud infrastructure, we used the open source infrastructure as a code (IaaC) software tool HashiCorp's [Terraform](https://www.terraform.io/) that lets you  build, change, and version public cloud infrastructure. In Terraform, we could configure the virtual machine in the cloud suited to our needs.  
+We used the SaaS platform [Terraform Cloud](https://cloud.hashicorp.com/products/terraform) to save secret configuration variables for security reasons. Also, Terraform Cloud lets you save the state of your infrastructure remotely so the system knows whether to create or update the configured cloud infrastructure.
+
+### 2.5 AWS <a name="aws"></a>
+
+To host our application, we used the Free Tier offerings of [AWS](https://aws.amazon.com/) (Amazon Web Services). AWS is a cloud computing platform provided by Amazon that includes a mixture of infrastructure as a service (IaaS), platform as a service (PaaS) and packaged software as a service (SaaS) offerings. Among the big offering of AWS, the cloud platform provides the usage of virtual machines called Amazon Elastic Compute Cloud ([Amazon EC2](https://aws.amazon.com/ec2/)). We used these EC2 instances to deploy our application on AWS. AWS provides a great amount of EC2 instances with different configurations of CPU, memory, storage and networking resources. With the AWS Free Tier, we had some options to try our setup on Linux t2.micro instances for free.  
+
+
+ 
+
+
+ 
+ 
+ # OLD
+ 
+ 
+ 
+
 
 ### 2.4 Deployment of application on EC2 instance <a name="ec2_deployment"></a>
 
