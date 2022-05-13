@@ -5,19 +5,20 @@
 ## Contents
 
 1. [ Problem description ](#desc)  
-1.1 [ Status quo ](#status)  
-1.2 [ Goal ](#goal)
+    1.1 [ Starting Point ](#start)  
+        1.1.1 [ Details of the Docker Application ](#docker_details)  
+    1.2 [ Goal ](#goal)
 
 2. [ Implementation ](#impl)  
-2.1 [ GitHub and GitHub Actions ](#git)  
-2.2 [ Terraform and AWS ](#terraform)  
-2.3 [ Docker ](#docker)  
-2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)  
-2.5 [ Deployment of application on EC2 instance  - Alternative ](#ec2_deployment_alt)  
+    2.1 [ GitHub and GitHub Actions ](#git)  
+    2.2 [ Terraform and AWS ](#terraform)  
+    2.3 [ Docker ](#docker)  
+    2.4 [ Deployment of application on EC2 instance ](#ec2_deployment)  
+    2.5 [ Deployment of application on EC2 instance  - Alternative ](#ec2_deployment_alt)  
 
 ## 1. Problem description <a name="desc"></a>
 
-### 1.1 Status quo <a name="status"></a>
+### 1.1 Starting Point <a name="start"></a>
 
 The starting point of the project will be a Docker-based web application for managing apartments that the students of the Software Engineering Master developed in 
 the last semester. The application can be cloned from the unibz instance of GitLab:  
@@ -31,6 +32,31 @@ The core part of the application consists of three docker containers that contai
 The containers communicate via a RabbitMQ Message Queue, which resides in another container. Furthermore, the application has a Portainer container 
 for managing the containers and a Consul container for Service Registry.
 
+#### 1.1.1 Details of the Docker Application <a name="docker_details"></a>
+
+##### How to access
+
+Open 54.80.67.161:5004. You will be on the homepage. 
+
+##### Available commands 
+
+* **apartments** Microservice: Home with *.../apartments*
+* **apartments** Microservice: Add apartments with *.../apartments/add?name=...&size=...)"*
+* **apartments** Microservice: Remove apartments with *.../apartments/remove?name=...)*
+* **apartments** Microservice: See existing apartments with *.../apartments/apartments)*
+
+* **Reserve** Microservice: Home with *.../reserve*
+* **Reserve** Microservice: Add a reservation with *.../reserve/add?name=...&start=yyyymmdd&duration=...&vip=1* 
+    + Adding a reservation for a non-existing apartment is blocked
+    + Adding a reservation that conflicts with another reservation is blocked
+* **Reserve** Microservice: remove a reservation with *.../reserve/remove?id=...* 
+* **Reserve** Microservice: See existing reservations with *.../reserve/reservations* 
+
+* **Search** Microservice: Home with *.../search*
+* **Search** Microservice: Search for apartments with *.../search/search?date=...&duration=...* 
+    + Apartments that are already booked are not shown in the search results
+
+
 ### 1.2 Goal <a name="goal"></a>
 
  The ultimate goal is to deploy the application in the cloud. The deployment should be detached from any local machines restrictions. 
@@ -40,10 +66,9 @@ for managing the containers and a Consul container for Service Registry.
  
 ### 2.1 GitHub and GitHub Actions <a name="git"></a>
  
- The whole existing Docker-based web application is moved to [GitHub](https://github.com/). The online software development platform based on the open-source version control software Git is suited well for us to work on the project in a team and provides a base for deploying our software online.  
- GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). With GitHub Actions, we will be able to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we will be able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
- 
- In a first step, we create a workflow in GitHub Actions that prints "Hello World" after a push event in the repository.
+ We moved the whole existing Docker-based web application to [GitHub](https://github.com/). The online software development platform based on the open-source version control software Git was suited well for us to work on the project in a team and provided a base for deploying our software online.  
+GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). GitHub Actions enables you to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we were able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
+There are a lot of public available Github Actions, that we could for example use to set up our infrastructure to deploy the application in the cloud.
  
 ### 2.2 Terraform and AWS <a name="terraform"></a>
 
