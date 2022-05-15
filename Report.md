@@ -20,9 +20,10 @@
     3.2. [ Solution 2 - Docker Hub ](#docker_hub)  
 
 4. [ Challenges in the Progress ](#challenges)  
-    4.1. [ Challenges with AWS ](#challenges_aws)  
-    4.2. [ Challenges with Terraform ](#challenges_terraform)  
-    4.3. [ Challenges with SSH ](#challenges_ssh) 
+    4.1. [ Accessing the AWS account ](#challenges_aws)  
+    4.2. [ Terraform State ](#challenges_terraform)  
+    4.3. [ Accessing the EC2 machine to deploy the app ](#challenges_ssh) 
+    4.4. [ Accessing the application in the browser ](#challenges_security_rules)
 
 5. [ Discussion ](#discussion)  
 
@@ -137,20 +138,20 @@ In the second solution we followed a different approach to upload the applicatio
 
 In the course of the project we were facing some challenges:
 
-#### 4.1. Challenges with AWS <a name="challenges_aws"></a>
+#### 4.1. Accessing the AWS account <a name="challenges_aws"></a>
 
 We started with an AWS Lab account, which comes with a different set of access keys every time you start it. This required a manual update of these access keys in our code every time. To have constant access keys, we needed to switch to a normal AWS account. During that process we noticed that hard-coding the access keys in the code is a security problem. To fix this, we saved the AWS access keys remotely in Terraform Cloud. 
 
-Additionally, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our terraform configuration file and attached it to our EC2 instance. 
-
-#### 4.2. Challenges with Terraform <a name="challenges_terraform"></a>
+#### 4.2. Terraform State <a name="challenges_terraform"></a>
 
 When we managed to set up the cloud infrastructure and run the application on it, we discovered that another run of the workflow while the instance of the run before was still running lead to the creation of a second EC2 instance, although the already running instance was supposed to be updated. We could fix this problem by saving the state of the infrastructure remotely in Terraform Cloud, so it would consider the existing state of the infrastructure during a new run of the workflow.
 
 
-#### 4.3. Challenges with SSH <a name="challenges_ssh"></a>
+#### 4.3. Accessing the EC2 machine to deploy the app <a name="challenges_ssh"></a>
 
-To access the EC2 instance in the workflow, we needed to use SSH. To use the SSH command, we needed the IP address and the Private key of the EC2 machine. In the beginning, when we worked with the Labs account, it wasn't possible to acquire the information without downloading them manually. However, when we switched to the private AWS account, we could download the (now constant) Private key and store it in a Github secret. For creating a constant IP adress, we used the AWS Elastic IP service. This allocates a fixed IP address to the AWS account. We then assign this IP address to our EC2 instance in our Terraform configuration file. The only issue that needs to be considered when using Elastic IP is that it costs some money if it's currently not assigned to a running EC2 instance. 
+To access the EC2 instance in the workflow, we explored different solutions. When starting the instance, the field "user_data" can be used to execute commands inside the EC2 machine. This, however, is only executed when the instance is newly created. Therefore, we use user_data only for the basic initialization of the machine (installing docker and docker-compose). For updating the application in case of a change we needed to SSH into the machine. To use the SSH command in our CI/CD pipeline, we needed a fixed IP address and Private key of the EC2 machine. In the beginning, when we worked with the Labs account, this wasn't possible. However, when we switched to the private AWS account, we could download a fixed Private key and store it as a Github secret. For creating a constant IP adress, we used the AWS Elastic IP service. This allocates a fixed IP address to the AWS account. We then assign this IP address to our EC2 instance in our Terraform configuration file. The only issue that needs to be considered when using Elastic IP is that it costs some money if it's currently not assigned to a running EC2 instance. 
 
+#### 4.4. Accessing the application in the browser <a name="challenges_security_rules"></a>
+After deploying the application, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our terraform configuration file and attached it to our EC2 instance. 
 
 
