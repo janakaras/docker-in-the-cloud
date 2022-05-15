@@ -26,6 +26,10 @@
     4.4. [ Accessing the application in the browser ](#challenges_security_rules)
 
 5. [ Discussion ](#discussion)  
+    5.1. [ Comparison of solutions ](#comparison)  
+    5.2. [ Improvements for the solutions ](#improvements)  
+    5.3. [ Possible next steps for the project ](#next_steps)  
+
 
 6. [ Conclusion ](#conclusion)  
 
@@ -152,11 +156,40 @@ When we managed to set up the cloud infrastructure and run the application on it
 To access the EC2 instance in the workflow, we explored different solutions. When starting the instance, the field "user_data" can be used to execute commands inside the EC2 machine. This, however, is only executed when the instance is newly created. Therefore, we use user_data only for the basic initialization of the machine (installing docker and docker-compose). For updating the application in case of a change we needed to SSH into the machine. To use the SSH command in our CI/CD pipeline, we needed a fixed IP address and Private key of the EC2 machine. In the beginning, when we worked with the Labs account, this wasn't possible. However, when we switched to the private AWS account, we could download a fixed Private key and store it as a Github secret. For creating a constant IP adress, we used the AWS Elastic IP service. This allocates a fixed IP address to the AWS account. We then assign this IP address to our EC2 instance in our Terraform configuration file. The only issue that needs to be considered when using Elastic IP is that it costs some money if it's currently not assigned to a running EC2 instance. 
 
 #### 4.4. Accessing the application in the browser <a name="challenges_security_rules"></a>
-After deploying the application, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our terraform configuration file and attached it to our EC2 instance. 
+After deploying the application, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our Terraform configuration file and attached it to our EC2 instance. 
 
 ### 5. Discussion <a name="discussion"></a>
 
+Working in the cloud comes with a great amount of services offered, where you have to choose which ones you want to use and combine. There are usually a lot of different solutions possible and one needs to decide which solution works best in the single case. Parameters to base the decision on could be pricing, privacy, computing capacity, availbility, easyness to manage, etc.  
+For us it was most important to use free options which are easy to work with, so we could get a comfortable introduction to cloud computing and get an impression of what is possible in general.  
+
+#### 5.1. Comparison of solutions <a name="comparison"></a>
+We developed two solutions to deploy our web application in the cloud which both have some advantages in disadvantages.  
+
+##### .zip solution:
+* Advantages:
+    * Higher security of privacy, since the code isn't published to an extra platform
+    * Less complexety, so mantaining and debugging is easier
+* Disadvantages:
+    * .zip link is a black box
+
+##### Docker solution:
+* Advantages:
+    * More reusable, images can be used for other purposes
+    * More flexible
+* Disadvantages:
+    * More possible stations for attacking
+    * Another platform to deploy
+
+#### 5.2. Improvements for the solutions <a name="improvements"></a>
+Having several containers comunicating in one EC2 machine doesn't make much sense. Putting them on different, single EC2 instances could be a better solution.  
+
+
 TODO: 
-- Mention Load Balancer
-- Mention which solution has which advantage (1 vs 2, privacy vs if you wanna publish it anyways)  
 - Mention that maybe docker-compose isn't the best solution for the cloud 
+
+
+#### 5.3. Possible next steps for the project <a name="next_steps"></a>
+In a next step for the project a load balancer could be integrated to assign dynamically as many instances to the application as needed. To achieve this the set up could look as follows:  
+TODO:  
+Load balancer explanation
