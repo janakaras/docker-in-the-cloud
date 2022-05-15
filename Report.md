@@ -154,4 +154,9 @@ To access the EC2 instance in the workflow, we explored different solutions. Whe
 #### 4.4. Accessing the application in the browser <a name="challenges_security_rules"></a>
 After deploying the application, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our terraform configuration file and attached it to our EC2 instance. 
 
+### 5. Discussion <a name="discussion"></a>
 
+TODO: 
+- Mention Load Balancer
+- Mention which solution has which advantage (1 vs 2, privacy vs if you wanna publish it anyways)  
+- Mention that maybe docker-compose isn't the best solution for the cloud 
