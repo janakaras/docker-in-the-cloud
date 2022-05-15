@@ -22,7 +22,7 @@
 4. [ Challenges in the Progress ](#challenges)  
     4.1. [ Accessing the AWS account ](#challenges_aws)  
     4.2. [ Terraform State ](#challenges_terraform)  
-    4.3. [ Accessing the EC2 machine to deploy the app ](#challenges_ssh) 
+    4.3. [ Accessing the EC2 machine to deploy the app ](#challenges_ssh)  
     4.4. [ Accessing the application in the browser ](#challenges_security_rules)
 
 5. [ Discussion ](#discussion)  
