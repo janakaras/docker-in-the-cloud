@@ -118,7 +118,7 @@ To host our application, we used the Free Tier offerings of [AWS](https://aws.am
 #### 3.1. Solution 1 - zip <a name="zip"></a>
 
 Both of our final solutions follow the basic described structure:  
-Following a trigger a GitHub Actions workflow starts. In the workflow with the help of Terraform an EC2 instance is created or if already existing updated. This will be decided by the remote state file in Terraform Cloud. In Terraform the configuration of the EC2 instance is defined. The correct security groups are defined and assigned, an Elastic IP which was created in the AWS account is assigned and in the User Data of the configuartion implementation Docker and Docke-Compose are installed in the EC2 instance.
+Following a trigger a GitHub Actions workflow starts. In the workflow with the help of Terraform an EC2 instance is created or if already existing updated. This will be decided by the remote state file in Terraform Cloud. In Terraform the configuration of the EC2 instance is defined. The correct security groups are defined and assigned, an Elastic IP which was created in the AWS account is assigned and in the User Data of the configuartion implementation Docker and Docker-Compose are installed in the EC2 instance.
 After the creation of the EC2 instance we worked out two solutions to upload the application to the cloud. In the first solution the first step was to access the instance from the wokflow. This was done via SSH and the predefined Elastic IP. To upload the application we used in our first solution the from GitHub provided .zip link to bring the whole application in the cloud. There we unzipped the folder and ran the on the instance installed docker-compose up to start the application.
 
 <br />
@@ -150,12 +150,12 @@ We started with an AWS Lab account, which comes with a different set of access k
 
 When we managed to set up the cloud infrastructure and run the application on it, we discovered that another run of the workflow while the instance of the run before was still running lead to the creation of a second EC2 instance, although the already running instance was supposed to be updated. We could fix this problem by saving the state of the infrastructure remotely in Terraform Cloud, so it would consider the existing state of the infrastructure during a new run of the workflow.
 
-
 #### 4.3. Accessing the EC2 machine to deploy the app <a name="challenges_ssh"></a>
 
 To access the EC2 instance in the workflow, we explored different solutions. When starting the instance, the field "user_data" can be used to execute commands inside the EC2 machine. This, however, is only executed when the instance is newly created. Therefore, we use user_data only for the basic initialization of the machine (installing docker and docker-compose). For updating the application in case of a change we needed to SSH into the machine. To use the SSH command in our CI/CD pipeline, we needed a fixed IP address and Private key of the EC2 machine. In the beginning, when we worked with the Labs account, this wasn't possible. However, when we switched to the private AWS account, we could download a fixed Private key and store it as a Github secret. For creating a constant IP adress, we used the AWS Elastic IP service. This allocates a fixed IP address to the AWS account. We then assign this IP address to our EC2 instance in our Terraform configuration file. The only issue that needs to be considered when using Elastic IP is that it costs some money if it's currently not assigned to a running EC2 instance. 
 
 #### 4.4. Accessing the application in the browser <a name="challenges_security_rules"></a>
+
 After deploying the application, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our Terraform configuration file and attached it to our EC2 instance. 
 
 ### 5. Discussion <a name="discussion"></a>
@@ -183,7 +183,6 @@ We developed two solutions to deploy our web application in the cloud which both
 
 #### 5.2. Improvements for the solutions <a name="improvements"></a>
 Having several containers comunicating in one EC2 machine doesn't make much sense. Putting them on different, single EC2 instances could be a better solution.  
-
 
 TODO: 
 - Mention that maybe docker-compose isn't the best solution for the cloud 
