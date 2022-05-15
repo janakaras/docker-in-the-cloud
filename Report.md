@@ -33,8 +33,8 @@
 ### 1.1. Starting Point <a name="start"></a>
 
 The starting point of the project was a Docker-based web application for managing apartments that the students of the Software Engineering Master developed in 
-the semester before (WS2021). The application can be cloned from the unibz instance of GitLab:  
-https://gitlab.inf.unibz.it/Jana.Karas/cloud-computing-project  
+the semester before (WS2021). The original application can be cloned from the unibz instance of GitLab:  
+https://gitlab.inf.unibz.it/Jana.Karas/cloud-computing-project. For starting the application locally, docker has to be installed on the machine. 
 
 The core part of the application consists of three docker containers that contain flask apps fulfilling the following services:  
 * Apartments: Add new apartments or remove apartments that are no longer offered.
@@ -51,6 +51,8 @@ for managing the containers and a Consul container for Service Registry.
 Open 54.80.67.161:5004. You will be on the homepage. 
 
 ##### Available commands 
+
+Add the following paths to the base URL: 
 
 * **apartments** Microservice: Home with *.../apartments*
 * **apartments** Microservice: Add apartments with *.../apartments/add?name=...&size=...)"*
@@ -71,7 +73,7 @@ Open 54.80.67.161:5004. You will be on the homepage.
 
 ### 1.2. Goal <a name="goal"></a>
 
-The goal was to deploy our web application in the cloud. All included steps such as setting up the infrastructure, upload the application to the cloud environment, starting the app in the cloud, etc. were supposed to be automated in a CI/CD-Pipeline.
+The goal is to automatically deploy our web application in the cloud. This will be done in a Github CI/CD-Pipeline: All included steps such as setting up the infrastructure, uploading the application to the cloud environment, starting the app in the cloud, etc. will be automated.
  
 ## 2. Basic Structure and Tools <a name="basic_tools"></a>
 
@@ -93,8 +95,8 @@ To deliver the images of our application to the cloud, we used the option to sav
 
 ### 2.3. GitHub Actions <a name="github_actions"></a>
 
-We used [GitHub](https://github.com/), an online software development platform based on the open-source version control software Git, to collaborate on the project together. GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). GitHub Actions enables you to design workflows which will be triggered by for example changes in the application's code that are pushed to GitHub. With GitHub Actions, we were able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
-There are a lot of public available GitHub Actions, that we could for example use to set up our infrastructure to deploy the application in the cloud.
+We used [GitHub](https://github.com/), an online software development platform based on the open-source version control software Git, to collaborate on the project together. GitHub includes the continuous integration and continuous delivery (CI/CD) platform [GitHub Actions](https://github.com/features/actions). GitHub Actions enables you to design workflows that will be started based on certain triggers such as a push to a certain branch in the repository. With GitHub Actions, we were able to automatically deploy our application in the cloud without any manual steps necessary in the course of the workflow.  
+There are a lot of publicly available GitHub Actions. We used one of them to set up our infrastructure to deploy the application in the cloud.
 
 ### 2.4. Terraform <a name="terraform"></a>
 
@@ -112,7 +114,7 @@ To host our application, we used the Free Tier offerings of [AWS](https://aws.am
 
 Both of our final solutions follow the basic described structure:  
 Following a trigger a GitHub Actions workflow starts. In the workflow with the help of Terraform an EC2 instance is created or if already existing updated. This will be decided by the remote state file in Terraform Cloud. In Terraform the configuration of the EC2 instance is defined. The correct security groups are defined and assigned, an Elastic IP which was created in the AWS account is assigned and in the User Data of the configuartion implementation Docker and Docke-Compose are installed in the EC2 instance.
-After the creation of the EC2 instance we worked out two solutions to upload the application to the cloud. In the first solution the first step was to access the instance from the wokflow. This was done via SSH and the predefined Elastic IP. To upload the application we used in our first solution the from GitHub provided .zip link to bring the whole application in the cloud. There we unziped the folder and run the on the instance installed docker-compose up to start the application.
+After the creation of the EC2 instance we worked out two solutions to upload the application to the cloud. In the first solution the first step was to access the instance from the wokflow. This was done via SSH and the predefined Elastic IP. To upload the application we used in our first solution the from GitHub provided .zip link to bring the whole application in the cloud. There we unzipped the folder and ran the on the instance installed docker-compose up to start the application.
 
 <br />
 <br />
@@ -122,7 +124,7 @@ After the creation of the EC2 instance we worked out two solutions to upload the
 
 #### 3.2. Solution 2 - Docker Hub <a name="docker_hub"></a>
 
-In the second solution we followed a different approach to upload the application to the cloud. In a first workflow the images of the Docker containers got published to Docker Hub. After that the EC2 instance got created like in the first described solution. The third step was to access the images from the running EC2 machine. Here we first accessed the machine via SSH again. After we downloaded the images from Docker Hub and run the Docker-Compose file to start the application.
+In the second solution we followed a different approach to upload the application to the cloud. In a first workflow the images of the Docker containers got published to Docker Hub. After that the EC2 instance got created like in the first described solution. The third step was to access the images from the running EC2 machine. Here we first used the linux "scp" command to copy only the docker-compose.yml file and the database files (instead of the whole application) and then accessed the machine via SSH again. Inside the machine, we downloaded the images from Docker Hub and ran the previously copied Docker-Compose file to start the application.
 
 <br />
 <br />
@@ -137,16 +139,18 @@ In the course of the project we were facing some challenges:
 
 #### 4.1. Challenges with AWS <a name="challenges_aws"></a>
 
-We started with an AWS Lab account, which comes with a different set of variables every time you start it. The update of these variables in our workflows was just manually possible. To put stable variables, we needed to switch to a private AWS account. Also, these variables were not supposed to be hard-coded in the workflow files due to security reasons. To fix this, we saved them remotely in Terraform cloud.
+We started with an AWS Lab account, which comes with a different set of access keys every time you start it. This required a manual update of these access keys in our code every time. To have constant access keys, we needed to switch to a normal AWS account. During that process we noticed that hard-coding the access keys in the code is a security problem. To fix this, we saved the AWS access keys remotely in Terraform Cloud. 
 
-To be able to open the correct ports to access the web application in the browser, we needed to set up the correct security rules for the EC2 instances configuration in Terraform.
+Additionally, we needed to open the correct port (in this case 5004) of the EC2 machine to be able to access the web application in the browser. For solving this, we added a security group which opens port 5004 to our terraform configuration file and attached it to our EC2 instance. 
 
 #### 4.2. Challenges with Terraform <a name="challenges_terraform"></a>
 
-When we managed to set up the cloud infrastructure and run the application on it, we discovered that another run of the workflow while the instance of the run before was still running lead to the creation of a second EC2 instance. Whereas the running instance was supposed to be updated. We could fix this problem by saving the state of the infrastructure remotely in Terraform Cloud, so it would consider the existing state of the infrastructure during a new run of the workflow.
+When we managed to set up the cloud infrastructure and run the application on it, we discovered that another run of the workflow while the instance of the run before was still running lead to the creation of a second EC2 instance, although the already running instance was supposed to be updated. We could fix this problem by saving the state of the infrastructure remotely in Terraform Cloud, so it would consider the existing state of the infrastructure during a new run of the workflow.
 
 
 #### 4.3. Challenges with SSH <a name="challenges_ssh"></a>
 
-To access the EC2 instance in the workflow, we needed to use SSH. In order to use SSH, we needed the IP address and the Private key of the EC2 machine. While we worked with the Labs account, it wasn't possible to acquire the information without downloading them manually. When we switched to the private AWS account, we could download the stable Private key and store it. Also, we could put an Elastic IP in the account, which we could connect to every time we wanted to deploy our application on AWS. The problem with the Elastic IP address was, that it costs some money to assign it to the account.
+To access the EC2 instance in the workflow, we needed to use SSH. To use the SSH command, we needed the IP address and the Private key of the EC2 machine. In the beginning, when we worked with the Labs account, it wasn't possible to acquire the information without downloading them manually. However, when we switched to the private AWS account, we could download the (now constant) Private key and store it in a Github secret. For creating a constant IP adress, we used the AWS Elastic IP service. This allocates a fixed IP address to the AWS account. We then assign this IP address to our EC2 instance in our Terraform configuration file. The only issue that needs to be considered when using Elastic IP is that it costs some money if it's currently not assigned to a running EC2 instance. 
+
+
 
