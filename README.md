@@ -193,5 +193,6 @@ In a next step for the project a load balancer could be integrated to assign dyn
 TODO:  
 Load balancer explanation
 
-*We would probably use a Network Load Balancer since we can expect many requests **(?)** *
+*We would probably use a Network Load Balancer since we can expect many requests(?)*
+
 **Stream of thought:** Instead of assigning the Elastic IP directly to a EC2 machine, the Elastic IP is assigned to the Network Load Balancer (created by a Github Action using Terraform). On receiving a request, the Network Load Balancer would decide which EC2 machine should the request be directed to. **QUESTIONABLE:** when the repository is updated, the EC2 machines managed by the Network Balancer are killed, and new ones are deployed. This could lead to the service being unavailable for a few short minutes. 
