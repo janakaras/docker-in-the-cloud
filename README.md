@@ -142,7 +142,7 @@ In the second solution we followed a different approach to upload the applicatio
 #### 3.3. Full Project Workflow Overview <a name="overall"></a>
 
 
-In the final version of the project it has been decided that the **Solution 2** (the Dockerhub image-based approach) will be used as the main method to deploy our container-based application to the EC2 machine. This has been done for image reusablitily and improved transparability reasons. Therefore, commiting the main branch now triggers Workflow (1) *(see image below)* which is responsible for image creation and publishment to Dockerhub, which in its turn triggers Workflow (2) which: 1) sets up the EC2 Infrastructure using Terraform and 2) accesses the EC2 machine and composes the images fetched from Dockerhub. 
+In the final version of the project it has been decided that the **Solution 2** (the Dockerhub image-based approach) will be used as the main method to deploy our container-based application to the EC2 machine. This has been done for improved image reusablitily and solution transparency reasons. Therefore, commiting the main branch now triggers Workflow (1) *(see image below)* which is responsible for image creation and publishment to Dockerhub, which in its turn triggers Workflow (2) which: 1) sets up the EC2 Infrastructure using Terraform and 2) accesses the EC2 machine and composes the images fetched from Dockerhub. 
 
 <br />
 <br />
