@@ -138,6 +138,15 @@ In the second solution we followed a different approach to upload the applicatio
  <br />
  
  
+#### 3.3. Full Project Workflow Overview <a name="overall"></a>
+
+<br />
+<br />
+<p align="center" ><img src="/images/workflow_v_3.png" width="500"></p>
+<br />
+<br />
+ 
+ 
 ### 4. Challenges in the Progress <a name="challenges"></a>
 
 In the course of the project we were facing some challenges:
