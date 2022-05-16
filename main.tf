@@ -83,7 +83,7 @@ resource "aws_instance" "app_server" {
      EOF
   
   tags = {
-     Name = "EC2-with-Security-Rule-Port-5004"
+     Name = "EC2-with-Docker-Compose-App"
    }
   
   # user_data_replace_on_change = true
