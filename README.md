@@ -142,7 +142,7 @@ In the second solution we followed a different approach to upload the applicatio
 #### 3.3. Full Project Workflow Overview <a name="overall"></a>
 
 
-In the final version of the project it has been decided that the **Solution 2** (the Dockerhub image-based approach) will be used as the main method to deploy our container-based application to the EC2 machine. This has been done for improved image reusablitily and solution transparency reasons. Therefore, commiting the main branch now triggers **Workflow (1)** *(see image below)* which is responsible for image creation and publishment to Dockerhub, which in its turn triggers **Workflow (2)** which: *1)* sets up the EC2 Infrastructure using Terraform and *2)* accesses the EC2 machine and composes the images fetched from Dockerhub. 
+In the final version of the project it has been decided that the **Solution 2** (the Dockerhub image-based approach) will be used as the main method to deploy our container-based application to the EC2 machine. This has been done for improved image reusablitily and solution transparency reasons. Therefore, commiting the main branch now triggers **Workflow (1)** *(see image below)* which is responsible for image creation and publishment to Dockerhub, which in its turn triggers **Workflow (2)** that is responsible for setting up the EC2 Infrastructure using Terraform. Finally, after **Workflow (2)** has finished, **Workflow (3)** accesses the EC2 machine and composes the images fetched from Dockerhub. 
 
 <br />
 <br />
@@ -150,9 +150,9 @@ In the final version of the project it has been decided that the **Solution 2** 
 <br />
 <br />
 
-As an alternative, we leave the option to manually trigger **Workflow (3)**, which would: *1)* set up the EC2 Infrastructure using Terraform and *2)* access the EC2 machine and fetch the application in the .zip format. This coresponds to the **Solution 1**. 
+As an alternative, we leave the option to manually trigger **Workflow (4)**, which would access the EC2 machine and fetch the application in the .zip format. This coresponds to the **Solution 1**. In this case, we assume that the EC2 machine is already running and no setup action is needed. 
 
-Lastly, a manual workflow designed for shutting down the infrastructure created by Terraform is defined (**Workflow (4)**). Running this workflow would destroy the EC2 machine that is running, which is useful in case the machine is no longer needed, costs too much or if sensitive content has been published to the server and one wants to remove it as fast as possible.
+Lastly, a manual workflow designed for shutting down the infrastructure created by Terraform is defined (**Workflow (5)**). Running this workflow would destroy the EC2 machine that is running, which is useful in case the machine is no longer needed, costs too much or if sensitive content has been published to the server and one wants to remove it as fast as possible.
  
  
 ### 4. Challenges in the Progress <a name="challenges"></a>
