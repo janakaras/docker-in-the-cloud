@@ -24,13 +24,13 @@ jobs:
         sudo rm -rf * 
       '
 
-  - name: Transfer Files
+  - name: Transfer Files to EC2
     run: |
       scp -o IdentityFile=key.pem -r ./data ec2-user@54.80.67.161:/home/ec2-user
       scp -o IdentityFile=key.pem docker-compose.dockerhub.yml ec2-user@54.80.67.161:/home/ec2-user
 
 
-  - name: SSH to EC2 and 
+  - name: SSH to EC2 and Update App
     run: |
       ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@54.80.67.161 '
         sudo service docker start &&
