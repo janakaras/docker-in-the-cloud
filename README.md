@@ -152,7 +152,7 @@ In the final version of the project it has been decided that the **Solution 2** 
 
 As an alternative, we leave the option to manually trigger **Workflow (3)**, which would: *1)* set up the EC2 Infrastructure using Terraform and *2)* access the EC2 machine and fetch the application in the .zip format. This coresponds to the **Solution 1**. 
 
-Lastly, a manual workflow designed for shutting down the infrastructure created by Terraform is defined (Workflow (4)). Running this workflow would destroy the EC2 machine that is running, which is useful in case the machine is no longer needed, costs too much or if sensitive content has been published to the server and one wants to remove it as fast as possible.
+Lastly, a manual workflow designed for shutting down the infrastructure created by Terraform is defined (**Workflow (4)**). Running this workflow would destroy the EC2 machine that is running, which is useful in case the machine is no longer needed, costs too much or if sensitive content has been published to the server and one wants to remove it as fast as possible.
  
  
 ### 4. Challenges in the Progress <a name="challenges"></a>
