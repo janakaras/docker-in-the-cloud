@@ -146,7 +146,7 @@ In the final version of the project it has been decided that the **Solution 2** 
 
 <br />
 <br />
-<p align="center" ><img src="/images/workflow_whole.png" width="700"></p>
+<p align="center" ><img src="/images/workflow_whole.png" width="800"></p>
 <br />
 <br />
 
