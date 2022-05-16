@@ -177,10 +177,12 @@ After deploying the application, we needed to open the correct port (in this cas
 
 ### 5. Discussion <a name="discussion"></a>
 
-Working in the cloud comes with a great amount of services offered, where you have to choose which ones you want to use and combine. There are usually a lot of different solutions possible and one needs to decide which solution works best in the single case. Parameters to base the decision on could be pricing, privacy, computing capacity, availbility, easyness to manage, etc.  
-For us it was most important to use free options which are easy to work with, so we could get a comfortable introduction to cloud computing and get an impression of what is possible in general.  
+#### 5.1. Motivation of design decisions
 
-#### 5.1. Comparison of solutions <a name="comparison"></a>
+Working in the cloud comes with a great amount of services offered, where you have to choose which ones you want to use and combine. There are usually a lot of different solutions possible and one needs to decide which solution works best in the single case. Parameters to base the decision on could be pricing, privacy, computing capacity, availbility, easyness to manage, etc.  
+For us it was first of all important to use free options which are easy to work with, so we could get a comfortable introduction to cloud computing and get an impression of what is possible in general. Second, we wanted to experiment on how to deploy a docker-compose app and noticed that many services (e.g. Lambda) only support deploying a single container and not a docker-compose application. Therefore, we needed the flexibility of the EC2 service. Finally, we wanted to create a fully automated deployment, which is why we used a Github Actions and Terraform. 
+
+#### 5.2. Comparison of solutions <a name="comparison"></a>
 We developed two solutions to deploy our web application in the cloud which both have some advantages in disadvantages.  
 
 ##### .zip solution:
@@ -198,12 +200,12 @@ We developed two solutions to deploy our web application in the cloud which both
     * More possible stations for attacking
     * Another platform to deploy
 
-#### 5.2. Improvements for the solutions <a name="improvements"></a>
+#### 5.3. Improvements for the solutions <a name="improvements"></a>
 Our solution is based on a number of virtualisation layers and steps: The Github runner in our CI/CD-pipeline already is a virtual machine. Inside the Github Runner, we connect to the Terraform Remote Backend and in there create an EC2 machine. Finally, inside this machine, we are using several docker containers that are built with docker-compose. 
 This structure allows for automation, however, it is also a bit error-prone due to the various virtual machines and containers that need to play together to make the solution work. 
 An idea to simplify this structure a little bit is to separate the docker containers. One container could reside either in an EC2 instance, or other services such as Lambda, the Elastic Container Service or Elastic Beanstalk could be explored. These services already have options to deploy single containers, whereas deploying a whole docker-compose app is rather complicated if not impossible. Additionally, the database could then be moved to a database service. However, like this, docker-compose would not be suitable for building the app anymore and additionally, the Rabbit MQ message queue would have to be replaced e.g. by an aws message queue. 
 
-#### 5.3. Possible next steps for the project <a name="next_steps"></a>
+#### 5.4. Possible next steps for the project <a name="next_steps"></a>
 A possible next step could be to add Autoscaling and a Load Balancer to the current infrastructure. With Autoscaling, copies of the instance(s) would be created if the current load is too high for one single instance. A Load Balancer would then distribute the traffic between the instance copies. The Elastic IP would be assigned to the Load Balancer instead of the EC2 instance. On receiving a request to the IP address, the Load Balancer would then decide which instance the request is directed to. Key requirement for this step would be to have a global database service that all instances can have access to: In the current solution, every copy of the instance would have it's own local database, which is not desirable for the application. Another aspect that should be considered is that updating the application would require (from our current understanding) to shut down all the copies and power them up again afterwards. This could lead to the serivce being unavailable for a few short minutes.
 
 ### 6. Conclusion <a name="conclusion"></a>
