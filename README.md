@@ -182,11 +182,9 @@ We developed two solutions to deploy our web application in the cloud which both
     * Another platform to deploy
 
 #### 5.2. Improvements for the solutions <a name="improvements"></a>
-Having several containers comunicating in one EC2 machine doesn't make much sense. Putting them on different, single EC2 instances could be a better solution.  
-
-TODO: 
-- Mention that maybe docker-compose isn't the best solution for the cloud 
-
+Our solution is based on a number of virtualisation layers and steps: The Github runner in our CI/CD-pipeline already is a virtual machine. Inside the Github Runner, we connect to the Terraform Remote Backend and in there create an EC2 machine. Finally, inside this machine, we are using several docker containers that are built with docker-compose. 
+This structure allows for automation, however, it is also a bit error-prone due to the various virtual machines and containers that need to play together to make the solution work. 
+An idea to simplify this structure a little bit is to separate the docker containers. One container could reside either in an EC2 instance, or other services such as Lambda, the Elastic Container Service or Elastic Beanstalk could be explored. These services already have options to deploy single containers, whereas deploying a whole docker-compose app is rather complicated if not impossible. Additionally, the database could then be moved to a database service. However, like this, docker-compose would not be suitable for building the app anymore and additionally, the Rabbit MQ message queue would have to be replaced e.g. by an aws message queue. 
 
 #### 5.3. Possible next steps for the project <a name="next_steps"></a>
 In a next step for the project a load balancer could be integrated to assign dynamically as many instances to the application as needed. To achieve this the set up could look as follows:  
