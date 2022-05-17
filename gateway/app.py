@@ -20,7 +20,7 @@ def find_service(name):
 # gateway hello world
 @app.route("/")
 def hello():
-    return "Hello World from the gateway"
+    return "Hello World from the course"
 
 # Apartments
 @app.route("/apartments/apartments")
